@@ -1,43 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=chrome">
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Fluidize</title>
-
     <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="main.css">
-
-    
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta content="fluidize" property="og:title" />
     <meta content="hi there im me hi hey hi hello hi hey" property="og:description" />
     <meta content="https://fludize.github.io" property="og:url" />
-    <meta content="#43B581" data-react-helmet="true" name="theme-color" />
-
-    
+    <meta content="#0a0a0f" data-react-helmet="true" name="theme-color" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <script src="main.js"></script>
-    <h1 id="title">Fluidize<h1>
-    <p class="links">
-        Discord: <a href="https://discord.com" target="_blank"><span id="discord">fluidize</span><a/> 
-             <br>
-        Valorant: <a href="https://tracker.gg/valorant/profile/riot/fluidize%23flow/overview" target="_blank"><span id="valorant">fluidize#flow</span><a/> 
-            <br>
-        Github: <a href="https://github.com/Fluidize" target="_blank"><span id="coding">Fluidize</span><a/>
-            <br>
-        Epic Games: <a href="https://fortnitetracker.com/profile/all/Flu1dize" target="_blank"><span id="epic">Flu1dize</span><a/>
-            <br>
-        Nano(XNO): <a href="https://nanolooker.com/account/nano_17o4w1p9gk8unnepcy7nf1i9oc4gxcb31mm41zu45q85on6h19wd3qk3qc4u" target="_blank"><span id="nano">nano_17o4w1p9gk8unnepcy7nf1i9oc4gxcb31mm41zu45q85on6h19wd3qk3qc4u</span><a/> <button id="copy_nano" onclick="copy_nano()">Copy</button>
-            <br>
-        Solana(SOL): <a href="https://explorer.solana.com/address/GSpGregkksyFFgWaQ48CkSi4bVKwC1uEj6T6Mp6nvgQh" target="_blank"><span id="solana">GSpGregkksyFFgWaQ48CkSi4bVKwC1uEj6T6Mp6nvgQh</span><a/> <button id="copy_solana" onclick="copy_solana()">Copy</button>
-    </p>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="javascript:void(0)" class="logo-btn" data-page="home">[Home]</a>
+            <button class="minimize-btn" aria-label="Minimize sidebar"><<<</button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="javascript:void(0)" class="nav-link" data-page="home">[Home]</a>
+            <a href="javascript:void(0)" class="nav-link" data-page="socials">[Socials]</a>
+            <a href="javascript:void(0)" class="nav-link" data-page="projects">[Projects]</a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="version">Inspired by</div>
+            <button href="https://cyberspace.online" class="inspired-btn">cyberspace.online</button>
+        </div>
+    </aside>
 
+    <main class="main-content">
+        <div class="content-wrapper">
+            <div class="window-frame">
+                <div id="content-area">
+                    <!-- Home content -->
+                    <div class="home-content" id="home-content">
+                        <h1 id="title">Fluidize</h1>
+                        <div class="home-subtitle-container">
+                            <span class="home-subtitle">Welcome to my corner of the internet!<span class="caret">_</span></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Socials content -->
+                    <div class="page-content" id="socials-content">
+                        <h1 id="title">Socials</h1>
+                        <div class="links-container">
+                            <ul class="links" style="list-style-type: square;">
+                                <li><span>Discord:</span> <a class="discord-btn" href="https://discord.com" target="_blank"><span id="discord">fluidize</span></a></li>
+                                <li><span>Github:</span> <a class="github-btn" href="https://github.com/Fluidize" target="_blank"><span id="github">Fluidize</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Projects content -->
+                    <div class="page-content" id="projects-content">
+                        <h1 id="title">Projects</h1>
+                        <div class="links-container">
+                            <p class="links" style="color: var(--text-color-primary);">
+                                Coming soon...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer"> 
+        <p style="align-self: center;">All rights reserved or something</p>
+        <button id="secret-btn">:</button>
+    </footer>
+
+    <div id="secret-modal" class="secret-modal">
+        <div class="secret-modal-backdrop"></div>
+        <div class="secret-modal-panel">
+            <button class="secret-modal-close"></button>
+            <img src="ditheredmonkie.png" class="secret-modal-image">
+            <p class="secret-modal-text">ditheredmonkie.png</p>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
 </body>
 
 </html>
