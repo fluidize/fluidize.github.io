@@ -21,20 +21,16 @@ document.addEventListener('DOMContentLoaded', function() {
     if (minimizeBtn && sidebar) {
         minimizeBtn.addEventListener('click', function() {
             sidebar.classList.toggle('minimized');
+            minimizeBtn.textContent = sidebar.classList.contains('minimized') ? '>>>' : '<<<';
+            minimizeBtn.setAttribute('aria-expanded', sidebar.classList.contains('minimized') ? 'false' : 'true');
         });
+        minimizeBtn.setAttribute('aria-expanded', 'true');
     }
-    
-    const themeBtn = document.querySelector('.theme-btn');
-    if (themeBtn) {
-        themeBtn.addEventListener('click', function() {
-            const currentTheme = document.body.getAttribute('data-theme');
-            if (currentTheme === 'light') {
-                document.body.setAttribute('data-theme', 'dark');
-                themeBtn.textContent = 'Dark';
-            } else {
-                document.body.setAttribute('data-theme', 'light');
-                themeBtn.textContent = 'Light';
-            }
+
+    const inspiredBtn = document.getElementById('inspired-btn');
+    if (inspiredBtn) {
+        inspiredBtn.addEventListener('click', function() {
+            location.assign('https://cyberspace.online');
         });
     }
     
