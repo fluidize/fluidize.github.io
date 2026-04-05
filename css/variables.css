@@ -1,0 +1,12 @@
+:root {
+    --sidebar-width: 240px;
+    --sidebar-width-collapsed: 4rem;
+    --primary-color: #2A2AB8;
+    --secondary-color: #6C5EB5;
+    --accent-color: #6A6ACD;
+    --hover-color: #f4f4fc;
+
+    --text-color-primary: #f4f4fc;
+    --text-color: #d0d0e8;
+    --border-width: 1px;
+}

@@ -1,0 +1,211 @@
+.content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.window-frame {
+    position: relative;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+}
+
+.window-frame > * {
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes edge-refract {
+    0%, 100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.01);
+    }
+}
+
+#title {
+    font-family: 'Tiny5', monospace;
+    color: var(--hover-color);
+    font-size: 3rem;
+    font-weight: 400;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    animation: none;
+}
+
+.window-frame #title {
+    margin-bottom: 0;
+}
+
+#discord {
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    color: var(--text-color);
+    text-shadow: none;
+}
+
+.home-content {
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.home-subtitle {
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-align: center;
+    max-width: 100%;
+    margin: 0 auto;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+.page-content {
+    min-height: 50vh;
+    position: relative;
+    z-index: 1;
+}
+
+.projects-intro {
+    margin-top: 1.5rem;
+    max-width: 42rem;
+    color: var(--text-color);
+    font-size: 1.15rem;
+    line-height: 1.65;
+}
+
+.projects-list {
+    list-style: none;
+    margin: 2rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.project-card {
+    border: var(--border-width) solid var(--accent-color);
+    padding: 1.25rem 1.5rem;
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.project-title {
+    font-family: 'Tiny5', monospace;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--text-color-primary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0 0 0.5rem;
+}
+
+.project-desc {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.project-tag {
+    font-family: 'VT323', monospace;
+    font-size: 0.95rem;
+    padding: 0.15rem 0.5rem;
+    border: var(--border-width) solid var(--accent-color);
+    color: var(--text-color-primary);
+    opacity: 0.85;
+}
+
+.project-link {
+    display: inline-block;
+    margin-top: 1rem;
+    font-family: 'VT323', monospace;
+    font-size: 1.1rem;
+    color: var(--hover-color);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-color);
+    transition: opacity 0.15s, letter-spacing 0.2s;
+}
+
+.project-link:hover {
+    opacity: 0.9;
+    letter-spacing: 0.05em;
+}
+
+.links-container {
+    margin-top: 2rem;
+}
+
+.links, #discord, #github {
+    font-family: 'VT323', monospace;
+    font-size: 1.4rem;
+    line-height: 3rem;
+    color: var(--text-color-primary);
+}
+
+#discord, #github {
+    color: inherit;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.discord-btn, .github-btn {
+    color: var(--text-color-primary);
+    background: transparent;
+    padding: 0.2rem 0.4rem;
+    border: 2px solid var(--accent-color);
+    box-shadow: none;
+    text-decoration: none;
+    transition: box-shadow 0.3s, background 0.3s, color 0.3s, background-color 0.3s;
+}
+
+.discord-btn:hover {
+    color: var(--hover-color);
+    background: #7289da;
+    box-shadow: -3px 3px 0 black;
+    text-decoration: none;
+}
+
+.github-btn:hover {
+    color: black;
+    background: white;
+    box-shadow: -3px 3px 0 black;
+    text-decoration: none;
+}
+
+.caret {
+    font-size: 1.2rem;
+    font-weight: 800;
+    animation: blink 1s steps(1, end) infinite;
+    margin-left: 0.3rem;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
