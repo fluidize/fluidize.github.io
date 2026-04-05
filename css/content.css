@@ -18,17 +18,6 @@
     z-index: 1;
 }
 
-@keyframes edge-refract {
-    0%, 100% {
-        opacity: 0.6;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.01);
-    }
-}
-
 #title {
     font-family: 'Tiny5', monospace;
     color: var(--hover-color);
@@ -152,6 +141,10 @@
 
 .links-container {
     margin-top: 2rem;
+}
+
+.links {
+    list-style-type: square;
 }
 
 .links, #discord, #github {

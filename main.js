@@ -1,92 +1,53 @@
-function copy_solana() {
-    var copyText = document.getElementById("solana").innerHTML;
-    navigator.clipboard.writeText(copyText).then(function() {
-        const btn = document.getElementById("copy_solana");
-        const originalText = btn.textContent;
-        btn.textContent = "Copied!";
-        btn.style.background = "#ff0000";
-        btn.style.color = "#ffffff";
-        setTimeout(function() {
-            btn.textContent = originalText;
-            btn.style.background = "";
-            btn.style.color = "";
-        }, 2000);
-    });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const minimizeBtn = document.querySelector('.minimize-btn');
-    const sidebar = document.querySelector('.sidebar');
-    
-    if (minimizeBtn && sidebar) {
-        minimizeBtn.addEventListener('click', function() {
-            sidebar.classList.toggle('minimized');
-            minimizeBtn.textContent = sidebar.classList.contains('minimized') ? '>>>' : '<<<';
-            minimizeBtn.setAttribute('aria-expanded', sidebar.classList.contains('minimized') ? 'false' : 'true');
-        });
-        minimizeBtn.setAttribute('aria-expanded', 'true');
-    }
-
+document.addEventListener('DOMContentLoaded', function () {
     const inspiredBtn = document.getElementById('inspired-btn');
     if (inspiredBtn) {
-        inspiredBtn.addEventListener('click', function() {
+        inspiredBtn.addEventListener('click', function () {
             location.assign('https://cyberspace.online');
         });
     }
-    
+
     const secretBtn = document.getElementById('secret-btn');
     const secretModal = document.getElementById('secret-modal');
     const closeBtn = document.querySelector('.secret-modal-close');
-    
+
     if (secretBtn && secretModal) {
-        secretBtn.addEventListener('click', function() {
+        secretBtn.addEventListener('click', function () {
             secretModal.classList.add('active');
         });
     }
-    
+
     if (closeBtn && secretModal) {
-        closeBtn.addEventListener('click', function() {
+        closeBtn.addEventListener('click', function () {
             secretModal.classList.remove('active');
         });
     }
-    
-    // Page navigation
+
+    const contentAreas = {
+        home: document.getElementById('home-content'),
+        socials: document.getElementById('socials-content'),
+        projects: document.getElementById('projects-content'),
+    };
+
+    const navSelector = '.nav-link[data-page]';
+
     function switchPage(page) {
-        const contentAreas = {
-            'home': document.getElementById('home-content'),
-            'socials': document.getElementById('socials-content'),
-            'projects': document.getElementById('projects-content')
-        };
-        
-        // Hide all content areas
-        Object.values(contentAreas).forEach(area => {
+        Object.values(contentAreas).forEach(function (area) {
             if (area) area.style.display = 'none';
         });
-        
-        // Show selected content area
         if (contentAreas[page]) {
             contentAreas[page].style.display = 'block';
         }
-        
-        // Update active nav links
-        const allNavLinks = document.querySelectorAll('.nav-link[data-page], .logo-btn[data-page]');
-        allNavLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('data-page') === page) {
-                link.classList.add('active');
-            }
+        document.querySelectorAll(navSelector).forEach(function (link) {
+            link.classList.toggle('active', link.getAttribute('data-page') === page);
         });
     }
-    
-    const navLinks = document.querySelectorAll('.nav-link[data-page], .logo-btn[data-page]');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+
+    document.querySelectorAll(navSelector).forEach(function (link) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
-            const page = this.getAttribute('data-page');
-            switchPage(page);
+            switchPage(link.getAttribute('data-page'));
         });
     });
-    
-    // Set home as active by default
+
     switchPage('home');
 });

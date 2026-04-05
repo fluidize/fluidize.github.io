@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="css/main.css">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <meta content="fluidize" property="og:title" />
-    <meta content="https://fludize.github.io" property="og:url" /> -->
-    <meta content="#0a0a0f" data-react-helmet="true" name="theme-color" />
+    <!-- <meta content="fluidize" property="og:title">
+    <meta content="https://fluidize.github.io" property="og:url"> -->
+    <meta content="#0a0a0f" data-react-helmet="true" name="theme-color">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
@@ -19,87 +19,80 @@
 </head>
 
 <body>
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <a href="javascript:void(0)" class="logo-btn" data-page="home">[Home]</a>
-            <button class="minimize-btn" aria-label="Minimize sidebar"><<<</button>
-        </div>
-        <nav class="sidebar-nav">
-            <a href="javascript:void(0)" class="nav-link" data-page="socials">[Socials]</a>
-            <a href="javascript:void(0)" class="nav-link" data-page="projects">[Projects]</a>
-        </nav>
-        <div class="sidebar-footer">
-            <div class="version">Inspired by</div>
-            <button type="button" id="inspired-btn">cyberspace.online</button>
-        </div>
-    </aside>
+    <div class="app-frame">
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="javascript:void(0)" class="nav-link" data-page="home">[Home]</a>
+                <a href="javascript:void(0)" class="nav-link" data-page="socials">[Socials]</a>
+                <a href="javascript:void(0)" class="nav-link" data-page="projects">[Projects]</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button type="button" id="inspired-btn">Inspired By</button>
+            </div>
+        </aside>
 
-    <main class="main-content">
-        <div class="content-wrapper">
-            <div class="window-frame">
-                <div id="content-area">
-
-                    <!-- Home content -->
-                    <div class="home-content" id="home-content">
-                        <h1 id="title">Fluidize</h1>
-                        <div class="home-subtitle-container">
-                            <span class="home-subtitle">Welcome to my corner of the internet!<span class="caret">_</span></span>
+        <main class="main-content">
+            <div class="content-wrapper">
+                <div class="window-frame">
+                    <div id="content-area">
+                        <div class="home-content" id="home-content">
+                            <h1 id="title">Fluidize</h1>
+                            <div class="home-subtitle-container">
+                                <span class="home-subtitle">Welcome to my corner of the internet!<span class="caret">_</span></span>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <!-- Socials content -->
-                    <div class="page-content" id="socials-content">
-                        <h1 id="title">Socials</h1>
-                        <div class="links-container">
-                            <ul class="links" style="list-style-type: square;">
-                                <li><span>Discord:</span> <a class="discord-btn" href="https://discord.com" target="_blank"><span id="discord">fluidize</span></a></li>
-                                <li><span>Github:</span> <a class="github-btn" href="https://github.com/Fluidize" target="_blank"><span id="github">Fluidize</span></a></li>
+
+                        <div class="page-content" id="socials-content">
+                            <h1 id="title">Socials</h1>
+                            <div class="links-container">
+                                <ul class="links">
+                                    <li><span>Discord:</span> <a class="discord-btn" href="https://discord.com" target="_blank" rel="noopener noreferrer"><span id="discord">fluidize</span></a></li>
+                                    <li><span>Github:</span> <a class="github-btn" href="https://github.com/Fluidize" target="_blank" rel="noopener noreferrer"><span id="github">Fluidize</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="page-content" id="projects-content">
+                            <h1 id="title">Projects</h1>
+                            <p class="projects-intro">Check out some of my projects below.<span class="caret">_</span></p>
+                            <ul class="projects-list">
+                                <li class="project-card">
+                                    <h2 class="project-title">Genetic Algorithms for Algorithmic Trading</h2>
+                                    <p class="project-desc">One or two sentences on what it does, who it's for, and what you learned or shipped.</p>
+                                    <div class="project-meta">
+                                        <span class="project-tag">Algorithmic trading</span>
+                                        <span class="project-tag">Evolutionary algorithms</span>
+                                        <span class="project-tag">Bayesian optimization</span>
+                                    </div>
+                                    <a class="project-link" href="https://github.com/fluidize/qtech/tree/main/trading/brains/evolution" target="_blank" rel="noopener noreferrer">qtech/trading/brains/evolution/ →</a>
+                                </li>
+                                <li class="project-card">
+                                    <h2 class="project-title">Jupiter-Based Live Trading System</h2>
+                                    <p class="project-desc">Short description. Mention a constraint you solved or a result you're proud of.</p>
+                                    <div class="project-meta">
+                                        <span class="project-tag">Algorithmic Trading</span>
+                                        <span class="project-tag">Live Trading</span>
+                                    </div>
+                                    <a class="project-link" href="#" target="_blank" rel="noopener noreferrer">Details →</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
-                    
-                    <!-- Projects content -->
-                    <div class="page-content" id="projects-content">
-                        <h1 id="title">Projects</h1>
-                        <p class="projects-intro">Check out some of my projects below.<span class="caret">_</span></p>
-                        <ul class="projects-list">
-                            <li class="project-card">
-                                <h2 class="project-title">Genetic Algorithms for Algorithmic Trading</h2>
-                                <p class="project-desc">One or two sentences on what it does, who it's for, and what you learned or shipped.</p>
-                                <div class="project-meta">
-                                    <span class="project-tag">Algorithmic trading</span>
-                                    <span class="project-tag">Evolutionary algorithms</span>
-                                    <span class="project-tag">Bayesian optimization</span>
-                                </div>
-                                <a class="project-link" href="https://github.com/fluidize/qtech/tree/main/trading/brains/evolution" target="_blank">qtech/trading/brains/evolution/ →</a>
-                            </li>
-                            <li class="project-card">
-                                <h2 class="project-title">Jupiter-Based Live Trading System</h2>
-                                <p class="project-desc">Short description. Mention a constraint you solved or a result you're proud of.</p>
-                                <div class="project-meta">
-                                    <span class="project-tag">Algorithmic Trading</span>
-                                    <span class="project-tag">Live Trading</span>
-                                </div>
-                                <a class="project-link" href="#" target="_blank">Details →</a>
-                            </li>
-                        </ul>
-                    </div>
-
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
 
-    <footer class="footer"> 
-        <p style="align-self: center;">______</p>
-        <button id="secret-btn">:</button>
-    </footer>
+        <footer class="footer">
+            <p class="footer-tagline">______</p>
+            <button type="button" id="secret-btn">:</button>
+        </footer>
+    </div>
 
     <div id="secret-modal" class="secret-modal">
         <div class="secret-modal-backdrop"></div>
         <div class="secret-modal-panel">
-            <button class="secret-modal-close"></button>
-            <img src="ditheredmonkie.png" class="secret-modal-image">
+            <button type="button" class="secret-modal-close" aria-label="Close"></button>
+            <img src="ditheredmonkie.png" alt="" class="secret-modal-image">
             <p class="secret-modal-text">ditheredmonkie.png</p>
         </div>
     </div>

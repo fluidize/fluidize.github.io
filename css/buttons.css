@@ -10,43 +10,11 @@ button:hover {
     box-shadow: -3px 3px 0 black;
 }
 
-.logo-btn {
-    background: none;
-    border: none;
-    color: var(--text-color-primary);
-    font-family: 'Tiny5', monospace;
-    font-size: 2rem;
-    font-weight: 400;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    text-decoration: none;
-    display: inline-block;
-    position: relative;
-    text-shadow: none;
-    margin-left: 0.5rem;
-}
-
-.minimize-btn {
-    font-family: 'Tiny5', monospace;
-    background: none;
-    border: 2px solid var(--accent-color);
-    color: var(--text-color-primary);
-    font-size: 1rem;
-    cursor: pointer;
-    padding: 0.25rem 0.5rem;
-    font-weight: 400;
-    transition: transform 0.3s, box-shadow 0.3s, color 0.3s;
-}
-
-.minimize-btn:hover {
-    color: black;
-    background: var(--hover-color);
-    border-color: black;
-}
-
 #inspired-btn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     padding: 0.4rem 0.8rem;
     background: transparent;
     border: 2px solid var(--accent-color);
@@ -61,7 +29,7 @@ button:hover {
 }
 
 #inspired-btn::before {
-    content: 'ᑕ¥βєяรקค¢є.online';
+    content: 'cyberspace.online';
     position: absolute;
     top: 0;
     left: 0;
