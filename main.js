@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
         projects: document.getElementById('projects-content'),
     };
 
-    const navSelector = '.nav-link[data-page]';
+    const navSelector = '.nav-link';
 
     function switchPage(page) {
         Object.values(contentAreas).forEach(function (area) {
