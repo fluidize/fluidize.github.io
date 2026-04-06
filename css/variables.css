@@ -1,8 +1,6 @@
 :root {
     --bezel: 40px;
     --viewport-radius: 25px;
-    --sidebar-width: 200px;
-
     --primary-color: #2a2ab8;
     --accent-color: #6a6acd;
     --hover-color: #f4f4fc;

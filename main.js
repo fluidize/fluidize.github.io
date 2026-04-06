@@ -1,25 +1,50 @@
 document.addEventListener('DOMContentLoaded', function () {
     const inspiredBtn = document.getElementById('inspired-btn');
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+    function setMenuOpen(open) {
+        document.body.classList.toggle('menu-open', open);
+        if (menuToggle) {
+            menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            menuToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+        }
+        if (sidebarBackdrop) {
+            sidebarBackdrop.setAttribute('aria-hidden', open ? 'false' : 'true');
+        }
+    }
+
+    function closeMenu() {
+        setMenuOpen(false);
+    }
+
+    function openInNewTab(url) {
+        window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
     if (inspiredBtn) {
         inspiredBtn.addEventListener('click', function () {
-            location.assign('https://cyberspace.online');
+            openInNewTab('https://cyberspace.online');
         });
     }
 
-    const secretBtn = document.getElementById('secret-btn');
-    const secretModal = document.getElementById('secret-modal');
-    const closeBtn = document.querySelector('.secret-modal-close');
+    document.querySelectorAll('#socials-content [data-url]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var url = btn.getAttribute('data-url');
+            if (url) {
+                openInNewTab(url);
+            }
+        });
+    });
 
-    if (secretBtn && secretModal) {
-        secretBtn.addEventListener('click', function () {
-            secretModal.classList.add('active');
+    if (menuToggle) {
+        menuToggle.addEventListener('click', function () {
+            setMenuOpen(!document.body.classList.contains('menu-open'));
         });
     }
 
-    if (closeBtn && secretModal) {
-        closeBtn.addEventListener('click', function () {
-            secretModal.classList.remove('active');
-        });
+    if (sidebarBackdrop) {
+        sidebarBackdrop.addEventListener('click', closeMenu);
     }
 
     const contentAreas = {
@@ -46,8 +71,15 @@ document.addEventListener('DOMContentLoaded', function () {
         link.addEventListener('click', function (e) {
             e.preventDefault();
             switchPage(link.getAttribute('data-page'));
+            closeMenu();
         });
     });
 
     switchPage('home');
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && document.body.classList.contains('menu-open')) {
+            setMenuOpen(false);
+        }
+    });
 });

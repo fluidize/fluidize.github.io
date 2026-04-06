@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Fluidize's Profile</title>
     <link rel="icon" href="favicon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-normalize@3.0.1/modern-normalize.min.css">
     <link rel="stylesheet" href="css/main.css">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,9 +20,11 @@
 </head>
 
 <body>
-    <div class="app-frame">
-        <aside class="sidebar">
-            <nav class="sidebar-nav">
+    <div class="sidebar-backdrop" id="sidebar-backdrop" aria-hidden="true"></div>
+
+    <aside class="sidebar" id="site-sidebar" aria-label="Navigation">
+        <div class="sidebar-body">
+            <nav class="sidebar-nav" aria-label="Site">
                 <a href="javascript:void(0)" class="nav-link" data-page="home">[Home]</a>
                 <a href="javascript:void(0)" class="nav-link" data-page="socials">[Socials]</a>
                 <a href="javascript:void(0)" class="nav-link" data-page="projects">[Projects]</a>
@@ -29,7 +32,11 @@
             <div class="sidebar-footer">
                 <button type="button" id="inspired-btn">Inspired By</button>
             </div>
-        </aside>
+        </div>
+    </aside>
+
+    <div class="app-frame" id="app-frame">
+        <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="site-sidebar"></button>
 
         <main class="main-content">
             <div class="content-wrapper">
@@ -46,8 +53,8 @@
                             <h1 id="title">Socials</h1>
                             <div class="links-container">
                                 <ul class="links">
-                                    <li><span>Discord:</span> <a class="discord-btn" href="https://discord.com" target="_blank" rel="noopener noreferrer"><span id="discord">fluidize</span></a></li>
-                                    <li><span>Github:</span> <a class="github-btn" href="https://github.com/Fluidize" target="_blank" rel="noopener noreferrer"><span id="github">Fluidize</span></a></li>
+                                    <li><span>Discord:</span> <button type="button" class="discord-btn" id="discord" data-url="https://discord.com">fluidize</button></li>
+                                    <li><span>Github:</span> <button type="button" class="github-btn" id="github" data-url="https://github.com/Fluidize">Fluidize</button></li>
                                 </ul>
                             </div>
                         </div>
@@ -60,7 +67,7 @@
                                     <h2 class="project-title">Genetic Algorithms for Algorithmic Trading</h2>
                                     <p class="project-desc">
                                         Using python AST trees to represent genes, algorithms can be randomly generated to process logic between technical indicators.
-                                        Current implementation uses population generation, bayesian optimization(optuna), and staged pruning to find the best performing algorithm.
+                                        Current implementation uses the following: population generation, bayesian optimization(optuna), and staged pruning to find the best performing algorithm within a generated population.
                                     </p>
                                     <div class="project-meta">
                                         <span class="project-tag">Algorithmic trading</span>
@@ -72,7 +79,7 @@
                                 <li class="project-card">
                                     <h2 class="project-title">Jupiter-Based Live Trading System</h2>
                                     <p class="project-desc">
-                                        Using the Jupiter DEX api, this system takes in an algorithm and asynchronously feeds market data to it.
+                                        Through the Jupiter Decentralized Exchange API, this system takes in an algorithm and asynchronously feeds market data to it.
                                         Features a live paper trading mode for forward testing.
                                     </p>
                                     <div class="project-meta">
@@ -90,17 +97,7 @@
 
         <footer class="footer">
             <p class="footer-tagline">______</p>
-            <button type="button" id="secret-btn">:</button>
         </footer>
-    </div>
-
-    <div id="secret-modal" class="secret-modal">
-        <div class="secret-modal-backdrop"></div>
-        <div class="secret-modal-panel">
-            <button type="button" class="secret-modal-close" aria-label="Close"></button>
-            <img src="ditheredmonkie.png" alt="" class="secret-modal-image">
-            <p class="secret-modal-text">ditheredmonkie.png</p>
-        </div>
     </div>
 
     <script src="main.js"></script>

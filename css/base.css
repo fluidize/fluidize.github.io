@@ -18,6 +18,7 @@
 html {
     background: #000000;
     height: 100%;
+    height: 100dvh;
     overflow: hidden;
     margin: 0;
     padding: 0;
@@ -29,7 +30,9 @@ body {
     color: var(--text-color-primary);
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 0;
+    height: 100%;
+    max-height: 100dvh;
     line-height: 1.6;
     margin: 0;
     padding: var(--bezel);
@@ -39,4 +42,14 @@ body {
     opacity: 0;
     transform: translateY(32px);
     animation: body-in-animation 0.45s ease-out forwards;
+}
+
+body.menu-open {
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+    }
 }

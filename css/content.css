@@ -33,14 +33,6 @@
     margin-bottom: 0;
 }
 
-#discord {
-    background: none;
-    -webkit-background-clip: unset;
-    background-clip: unset;
-    color: var(--text-color);
-    text-shadow: none;
-}
-
 .home-content {
     justify-content: center;
     align-items: center;
@@ -148,41 +140,35 @@
     list-style-type: square;
 }
 
-.links, #discord, #github {
+.links {
     font-family: 'VT323', monospace;
     font-size: 1.4rem;
     line-height: 3rem;
     color: var(--text-color-primary);
 }
 
-#discord, #github {
-    color: inherit;
-    font-size: 1.2rem;
-    line-height: 1;
-}
-
-.discord-btn, .github-btn {
+.discord-btn,
+.github-btn {
     color: var(--text-color-primary);
     background: transparent;
     padding: 0.2rem 0.4rem;
     border: 2px solid var(--accent-color);
     box-shadow: none;
-    text-decoration: none;
-    transition: box-shadow 0.3s, background 0.3s, color 0.3s, background-color 0.3s;
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    transform: translate(0, 0);
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s, border-color 0.3s;
 }
 
-.discord-btn:hover {
-    color: var(--hover-color);
-    background: #7289da;
-    box-shadow: -3px 3px 0 black;
-    text-decoration: none;
-}
-
-.github-btn:hover {
-    color: black;
-    background: white;
-    box-shadow: -3px 3px 0 black;
-    text-decoration: none;
+#discord.discord-btn:hover,
+#github.github-btn:hover {
+    color: #000;
+    background: #fff;
+    border-color: #000;
+    transform: translate(3px, -3px);
+    box-shadow: -3px 3px 0 #000;
 }
 
 .caret {
@@ -201,5 +187,15 @@
     }
     100% {
         opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .project-link {
+        word-break: break-word;
+    }
+
+    .links li {
+        padding-right: 0.25rem;
     }
 }

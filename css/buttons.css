@@ -52,22 +52,3 @@ button:hover {
 #inspired-btn:hover::before {
     opacity: 1;
 }
-
-#secret-btn {
-    grid-column: 3;
-    justify-self: end;
-    background: var(--primary-color);
-    border: 2px solid var(--accent-color);
-    color: rgba(255, 255, 255, 0);
-    padding: 0.4rem 0.8rem;
-    font-family: 'Tiny5', monospace;
-    font-size: 0.8rem;
-    font-weight: 400;
-    transition: transform 0.3s, box-shadow 0.3s, background 0.3s, border-color 0.3s, color 0.3s;
-}
-
-#secret-btn:hover {
-    background: var(--hover-color);
-    border-color: black;
-    color: rgba(255, 255, 255, 0);
-}
