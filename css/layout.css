@@ -34,6 +34,7 @@
 }
 
 .footer {
+    position: relative;
     flex-shrink: 0;
     padding: 1rem 2rem;
     background: var(--primary-color);
@@ -45,11 +46,24 @@
     justify-content: center;
     align-items: center;
     z-index: 100;
+    overflow: visible;
 }
 
 .footer-tagline {
     margin: 0;
     text-align: center;
+}
+
+.footer-goose {
+    position: absolute;
+    top: 0;
+    right: max(0.75rem, env(safe-area-inset-right));
+    z-index: 120;
+    height: clamp(64px, 18vw, 104px);
+    width: auto;
+    transform: translateY(-50%);
+    pointer-events: none;
+    user-select: none;
 }
 
 /* Drawer */
