@@ -76,10 +76,26 @@
     gap: 1.5rem;
 }
 
-.project-card {
+.project-card,
+.socials-card {
     border: var(--border-width) solid var(--accent-color);
     padding: 1.25rem 1.5rem;
     background: rgba(0, 0, 0, 0.12);
+    border-radius: var(--card-radius);
+}
+
+.socials-card {
+    margin-top: 2rem;
+}
+
+.socials-links {
+    list-style-type: square;
+    margin: 0;
+    padding-left: 1.5rem;
+    font-family: 'Departure Mono', monospace;
+    font-size: 1.4rem;
+    line-height: 3rem;
+    color: var(--text-color-primary);
 }
 
 .project-title {
@@ -108,7 +124,7 @@
 }
 
 .project-tag {
-    font-family: 'VT323', monospace;
+    font-family: 'Departure Mono', monospace;
     font-size: 0.95rem;
     padding: 0.15rem 0.5rem;
     border: var(--border-width) solid var(--accent-color);
@@ -119,7 +135,7 @@
 .project-link {
     display: inline-block;
     margin-top: 1rem;
-    font-family: 'VT323', monospace;
+    font-family: 'Departure Mono', monospace;
     font-size: 1.1rem;
     color: var(--hover-color);
     text-decoration: none;
@@ -132,21 +148,6 @@
     letter-spacing: 0.05em;
 }
 
-.links-container {
-    margin-top: 2rem;
-}
-
-.links {
-    list-style-type: square;
-}
-
-.links {
-    font-family: 'VT323', monospace;
-    font-size: 1.4rem;
-    line-height: 3rem;
-    color: var(--text-color-primary);
-}
-
 .discord-btn,
 .github-btn {
     color: var(--text-color-primary);
@@ -154,7 +155,7 @@
     padding: 0.2rem 0.4rem;
     border: 2px solid var(--accent-color);
     box-shadow: none;
-    font-family: 'VT323', monospace;
+    font-family: 'Departure Mono', monospace;
     font-size: 1.2rem;
     line-height: 1;
     cursor: pointer;
@@ -195,7 +196,7 @@
         word-break: break-word;
     }
 
-    .links li {
+    .socials-links li {
         padding-right: 0.25rem;
     }
 }
