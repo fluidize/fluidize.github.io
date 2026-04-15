@@ -45,7 +45,7 @@
                         <div class="home-content" id="home-content">
                             <h1 id="title">Fluidize</h1>
                             <div class="home-subtitle-container">
-                                <span class="home-subtitle">Welcome to my corner of the internet!<span class="caret">_</span></span>
+                                <span class="home-subtitle"><span class="home-subtitle-text">Welcome to my corner of the internet!</span><span class="caret">_</span></span>
                             </div>
                         </div>
 
@@ -80,6 +80,7 @@
                                     <h2 class="project-title">Jupiter-Based Live Trading System</h2>
                                     <p class="project-desc">
                                         Through the Jupiter Decentralized Exchange API, this system takes in an algorithm and asynchronously feeds market data to it.
+                                        Market data is streamed from sources such as binance, and trades are processed through the Jupiter DEX API.
                                         Features a live paper trading mode for forward testing.
                                     </p>
                                     <div class="project-meta">
@@ -87,6 +88,19 @@
                                         <span class="project-tag">Live Trading</span>
                                     </div>
                                     <a class="project-link" href="https://github.com/fluidize/qtech/tree/main/trading/live" target="_blank">qtech/trading/live/ →</a>
+                                </li>
+                                <li class="project-card">
+                                    <h2 class="project-title">Multiheaded Neural Network for Optimal Asset Allocation</h2>
+                                    <p class="project-desc">
+                                        This model uses two heads in a residual-like architecture, both trained on the same data with separate objectives.
+                                        The distribution head estimates the forward velocity of the asset according to a student-t distribution.
+                                        The allocation head uses both the distribution and the input data to estimate the optimal percentage allocation of the asset, according to the given loss function.
+                                    </p>
+                                    <div class="project-meta">
+                                        <span class="project-tag">Neural Networks</span>
+                                        <span class="project-tag">Algorithmic Trading</span>
+                                    </div>
+                                    <a class="project-link" href="https://github.com/fluidize/qtech/tree/main/trading/brains/time_series/allocation" target="_blank">qtech/trading/brains/time_series/allocation/ →</a>
                                 </li>
                             </ul>
                         </div>

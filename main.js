@@ -3,6 +3,32 @@ document.addEventListener('DOMContentLoaded', function () {
     const menuToggle = document.getElementById('menu-toggle');
     const sidebarBackdrop = document.getElementById('sidebar-backdrop');
 
+    function typeText(el, text, opts) {
+        const options = opts || {};
+        const delayMs = typeof options.delayMs === 'number' ? options.delayMs : 1000;
+        const stepMs = typeof options.stepMs === 'number' ? options.stepMs : 35;
+
+        if (!el) return;
+
+        const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduceMotion) {
+            el.textContent = text;
+            return;
+        }
+
+        el.textContent = '';
+        window.setTimeout(function () {
+            let i = 0;
+            const timer = window.setInterval(function () {
+                i += 1;
+                el.textContent = text.slice(0, i);
+                if (i >= text.length) {
+                    window.clearInterval(timer);
+                }
+            }, stepMs);
+        }, delayMs);
+    }
+
     function setMenuOpen(open) {
         document.body.classList.toggle('menu-open', open);
         if (menuToggle) {
@@ -76,6 +102,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     switchPage('home');
+
+    const homeSubtitleText = document.querySelector('.home-subtitle .home-subtitle-text');
+    if (homeSubtitleText) {
+        const text = homeSubtitleText.textContent || '';
+        typeText(homeSubtitleText, text, { delayMs: 1000, stepMs: 35 });
+    }
 
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && document.body.classList.contains('menu-open')) {
