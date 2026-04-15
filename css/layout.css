@@ -33,6 +33,20 @@
     padding: var(--main-pad-y) 2rem;
 }
 
+/* Hide scrollbars (still scrollable) */
+.main-content,
+.sidebar-body {
+    -ms-overflow-style: none; /* IE/Edge legacy */
+    scrollbar-width: none; /* Firefox */
+}
+
+.main-content::-webkit-scrollbar,
+.sidebar-body::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+    width: 0;
+    height: 0;
+}
+
 .footer {
     position: relative;
     flex-shrink: 0;
