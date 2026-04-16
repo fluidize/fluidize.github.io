@@ -52,3 +52,17 @@ button:hover {
 #inspired-btn:hover::before {
     opacity: 1;
 }
+
+@media (max-width: 768px) {
+    #inspired-btn {
+        background: #EFE5C0;
+        border-color: black;
+        color: transparent;
+        transform: translate(3px, -3px);
+        box-shadow: -3px 3px 0 black;
+    }
+
+    #inspired-btn::before {
+        opacity: 1;
+    }
+}

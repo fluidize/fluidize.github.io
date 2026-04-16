@@ -68,6 +68,18 @@
     text-align: center;
 }
 
+.footer-tagline a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 400;
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.footer-tagline a:hover {
+    font-weight: 700;
+}
+
 .footer-goose {
     position: absolute;
     top: 0;
@@ -244,6 +256,14 @@ body.menu-open .sidebar-backdrop {
 }
 
 @media (max-width: 768px) {
+    .menu-toggle {
+        background: #fff;
+        border: 4px solid #000;
+        color: #000;
+        transform: translate(3px, -3px);
+        box-shadow: -3px 3px 0 #000;
+    }
+
     .main-content {
         --main-pad-y: max(
             calc(1rem + 3.5rem + env(safe-area-inset-top)),
