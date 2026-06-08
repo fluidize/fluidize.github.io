@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const inspiredBtn = document.getElementById('inspired-btn');
     const menuToggle = document.getElementById('menu-toggle');
     const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+    const menuHint = document.querySelector('.menu-hint');
 
     function typeText(el, text, opts) {
         const options = opts || {};
@@ -66,6 +67,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (menuToggle) {
         menuToggle.addEventListener('click', function () {
             setMenuOpen(!document.body.classList.contains('menu-open'));
+            if (menuHint) {
+                menuHint.style.display = 'none';
+            }
         });
     }
 

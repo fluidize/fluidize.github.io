@@ -229,6 +229,26 @@ body.menu-open .sidebar {
     box-shadow: -3px 3px 0 #000;
 }
 
+.menu-hint {
+    position: absolute;
+    z-index: 440;
+    top: max(12px, calc(env(safe-area-inset-top) + 8px));
+    left: calc(48px + 24px + 12px);
+    height: 48px;
+    margin: 12px 0;
+    color: var(--text-color-primary);
+    font-family: 'Tiny5', monospace;
+    font-size: 1rem;
+    line-height: 48px;
+    opacity: 0.7;
+    transition: opacity 0.15s ease;
+    pointer-events: none;
+}
+
+.menu-hint:hover {
+    opacity: 1;
+}
+
 body.menu-open .menu-toggle::before {
     content: '×';
 }
