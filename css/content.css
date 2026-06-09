@@ -82,6 +82,7 @@
     padding: 1.25rem 1.5rem;
     background: rgba(0, 0, 0, 0.12);
     border-radius: var(--card-radius);
+    position: relative;
 }
 
 .socials-card {
@@ -146,6 +147,16 @@
 .project-link:hover {
     opacity: 0.9;
     letter-spacing: 0.05em;
+}
+
+.size-info {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.75rem;
+    font-family: 'Departure Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-color);
+    opacity: 0.7;
 }
 
 .discord-btn,
