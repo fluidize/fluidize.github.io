@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const menuToggle = document.getElementById('menu-toggle');
     const sidebarBackdrop = document.getElementById('sidebar-backdrop');
     const menuHint = document.querySelector('.menu-hint');
+    const mainContent = document.querySelector('.main-content');
 
     function typeText(el, text, opts) {
         const options = opts || {};
@@ -235,5 +236,23 @@ document.addEventListener('DOMContentLoaded', function () {
     // Also update on page load if projects page is initially visible
     if (contentAreas.projects && contentAreas.projects.style.display !== 'none') {
         updateSizeInfo();
+    }
+
+    // Hide menu button when scrolling down, show only when at the top
+    function handleScroll() {
+        if (menuToggle && mainContent) {
+            if (mainContent.scrollTop === 0) {
+                menuToggle.style.opacity = '';
+                menuToggle.style.visibility = '';
+            } else {
+                menuToggle.style.opacity = '0';
+                menuToggle.style.visibility = 'hidden';
+            }
+        }
+    }
+
+    if (mainContent) {
+        mainContent.addEventListener('scroll', handleScroll);
+        handleScroll();
     }
 });

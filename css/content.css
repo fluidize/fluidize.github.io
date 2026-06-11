@@ -136,12 +136,17 @@
 .project-link {
     display: inline-block;
     margin-top: 1rem;
+    margin-bottom: 1.5rem;
     font-family: 'Departure Mono', monospace;
     font-size: 1.1rem;
     color: var(--hover-color);
     text-decoration: none;
     border-bottom: 1px solid var(--accent-color);
     transition: opacity 0.15s, letter-spacing 0.2s;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .project-link:hover {
@@ -203,10 +208,6 @@
 }
 
 @media (max-width: 768px) {
-    .project-link {
-        word-break: break-word;
-    }
-
     .socials-links li {
         padding-right: 0.25rem;
     }
