@@ -5,6 +5,35 @@ document.addEventListener('DOMContentLoaded', function () {
     const menuHint = document.querySelector('.menu-hint');
     const mainContent = document.querySelector('.main-content');
 
+    // Pop sound on click using Web Audio API
+    function playPopSound() {
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.type = 'square';
+            oscillator.frequency.setValueAtTime(1200, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 0.02);
+
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.02);
+
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.02);
+        } catch (e) {
+            console.log('Audio not supported');
+        }
+    }
+
+    // Add pop sound to all clickable elements
+    document.addEventListener('click', function () {
+        playPopSound();
+    });
+
     function typeText(el, text, opts) {
         const options = opts || {};
         const delayMs = typeof options.delayMs === 'number' ? options.delayMs : 1000;

@@ -20,7 +20,7 @@
 
 #title {
     font-family: 'Tiny5', monospace;
-    color: var(--hover-color);
+    color: var(--text-color-primary);
     font-size: 3rem;
     font-weight: 400;
     margin-bottom: 0;
@@ -101,7 +101,7 @@
 
 .project-title {
     font-family: 'Tiny5', monospace;
-    font-size: 1.35rem;
+    font-size: 1.5rem;
     font-weight: 400;
     color: var(--text-color-primary);
     letter-spacing: 0.06em;
@@ -139,7 +139,7 @@
     margin-bottom: 1.5rem;
     font-family: 'Departure Mono', monospace;
     font-size: 1.1rem;
-    color: var(--hover-color);
+    color: var(--text-color-primary);
     text-decoration: none;
     border-bottom: 1px solid var(--accent-color);
     transition: opacity 0.15s, letter-spacing 0.2s;

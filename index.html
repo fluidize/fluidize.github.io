@@ -99,14 +99,14 @@
                                     <p class="project-desc">
                                         The policy uses two encoders, one creating embeddings through 1D Convolution and the other with LSTMs.
                                         The learning/trading environment uses PyTorch's functions to allow a computational graph to be formed between the policy's trades and a metric.
-                                        In this way, the policy can be trained to directly optimize for the metric without traditional reinforcement learning methods.
-                                        To introduce exploration during training, the policy predicts a normal distribution of allocations(mu and log-sigma), where a specific allocation is randomly sampled.
+                                        In this way, the policy can be trained to directly optimize for the metric using standard backpropagation instead of traditional reinforcement learning methods.
+                                        To introduce exploration during training, the policy predicts a normal distribution of allocations(mu and log-sigma), where an allocation is randomly sampled.
                                         Using action sampling also appears to stabilize the train loss, reducing erratic train losses that may hinder the policy.
                                     </p>
                                     <div class="project-meta">
+                                        <span class="project-tag">Algorithmic Trading</span>
                                         <span class="project-tag">Neural Networks</span>
                                         <span class="project-tag">Reinforcement Learning</span>
-                                        <span class="project-tag">Algorithmic Trading</span>
                                     </div>
                                     <a class="project-link" href="https://github.com/fluidize/qtech/tree/main/trading/brains/allocation" target="_blank">qtech/trading/brains/allocation/ →</a>
                                     <span class="size-info" data-github="fluidize/qtech/trading/brains/allocation">Loading...</span>
