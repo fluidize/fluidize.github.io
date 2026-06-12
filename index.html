@@ -95,14 +95,17 @@
                                     <span class="size-info" data-github="fluidize/qtech/trading/live/jupiter">Loading...</span>
                                 </li>
                                 <li class="project-card">
-                                    <h2 class="project-title">Multiheaded Neural Network for Optimal Asset Allocation</h2>
+                                    <h2 class="project-title">Differentiable RL for Optimal Asset Allocation</h2>
                                     <p class="project-desc">
-                                        This model uses two heads in a residual-like architecture, both trained on the same data with separate objectives.
-                                        The distribution head estimates the forward velocity of the asset according to a student-t distribution.
-                                        The allocation head uses both the distribution and the input data to estimate the optimal percentage allocation of the asset, according to the given loss function.
+                                        The policy uses two encoders, one creating embeddings through 1D Convolution and the other with LSTMs.
+                                        The learning/trading environment uses PyTorch's functions to allow a computational graph to be formed between the policy's trades and a metric.
+                                        In this way, the policy can be trained to directly optimize for the metric without traditional reinforcement learning methods.
+                                        To introduce exploration during training, the policy predicts a normal distribution of allocations(mu and log-sigma), where a specific allocation is randomly sampled.
+                                        Using action sampling also appears to stabilize the train loss, reducing erratic train losses that may hinder the policy.
                                     </p>
                                     <div class="project-meta">
                                         <span class="project-tag">Neural Networks</span>
+                                        <span class="project-tag">Reinforcement Learning</span>
                                         <span class="project-tag">Algorithmic Trading</span>
                                     </div>
                                     <a class="project-link" href="https://github.com/fluidize/qtech/tree/main/trading/brains/allocation" target="_blank">qtech/trading/brains/allocation/ →</a>
