@@ -1,2 +1,2 @@
 # fluidize.github.io
-my website
+My portfolio website, blue C64 style.
