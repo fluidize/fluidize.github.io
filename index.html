@@ -25,9 +25,36 @@
     <aside class="sidebar" id="site-sidebar" aria-label="Navigation">
         <div class="sidebar-body">
             <nav class="sidebar-nav" aria-label="Site">
-                <a href="javascript:void(0)" class="nav-link" data-page="home">[Home]</a>
-                <a href="javascript:void(0)" class="nav-link" data-page="projects">[Projects]</a>
-                <a href="javascript:void(0)" class="nav-link" data-page="socials">[Socials]</a>
+                <div class="filetree">
+                    <div class="filetree-root">
+                        Explorer
+                        <img src="images/folder-open.svg" alt="" class="filetree-root-icon">
+                    </div>
+                    <div class="filetree-item">
+                        <a href="javascript:void(0)" class="filetree-link" data-page="home">home</a>
+                    </div>
+                    <div class="filetree-nested" id="home-nested">
+                        <div class="filetree-item">
+                            <span class="filetree-nonlink">goose.gif</span>
+                        </div>
+                    </div>
+                    <div class="filetree-item">
+                        <a href="javascript:void(0)" class="filetree-link" data-page="projects">projects</a>
+                    </div>
+                    <!-- AUTOMATIC CARD NESTING -->
+                    <div class="filetree-nested" id="projects-nested"></div>
+                    <div class="filetree-item">
+                        <a href="javascript:void(0)" class="filetree-link" data-page="socials">socials</a>
+                    </div>
+                    <div class="filetree-nested" id="socials-nested">
+                        <div class="filetree-item">
+                            <span class="filetree-nonlink">github.url</span>
+                        </div>
+                        <div class="filetree-item">
+                            <span class="filetree-nonlink">discord.url</span>
+                        </div>
+                    </div>
+                </div>
             </nav>
             <div class="sidebar-footer">
                 <button type="button" id="inspired-btn">Inspired By</button>

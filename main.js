@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
         projects: document.getElementById('projects-content'),
     };
 
-    const navSelector = '.nav-link';
+    const navSelector = '.filetree-link';
 
     function switchPage(page) {
         Object.values(contentAreas).forEach(function (area) {
@@ -123,19 +123,124 @@ document.addEventListener('DOMContentLoaded', function () {
             contentAreas[page].style.display = 'block';
         }
         document.querySelectorAll(navSelector).forEach(function (link) {
-            link.classList.toggle('active', link.getAttribute('data-page') === page);
+            link.classList.toggle('active', link.getAttribute('data-page') === page && !link.getAttribute('data-project'));
         });
     }
 
-    document.querySelectorAll(navSelector).forEach(function (link) {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            switchPage(link.getAttribute('data-page'));
-            closeMenu();
+    function setActiveProject(projectId) {
+        document.querySelectorAll(navSelector).forEach(function (link) {
+            const linkProject = link.getAttribute('data-project');
+            const linkPage = link.getAttribute('data-page');
+            
+            if (linkProject === projectId) {
+                link.classList.add('active');
+            } else if (linkPage === 'projects' && !linkProject) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
         });
+    }
+
+    function handleNavClick(e) {
+        e.preventDefault();
+        const page = this.getAttribute('data-page');
+        const project = this.getAttribute('data-project');
+        
+        switchPage(page);
+        
+        if (project) {
+            setActiveProject(project);
+            setTimeout(function() {
+                const projectCards = document.querySelectorAll('.project-card');
+                projectCards.forEach(function(card, index) {
+                    const titleElement = card.querySelector('.project-title');
+                    if (!titleElement) return;
+                    
+                    const title = titleElement.textContent.trim();
+                    const abbreviation = generateAbbreviation(title);
+                    
+                    if (abbreviation === project) {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            }, 100);
+        }
+        
+        closeMenu();
+    }
+
+    // Attach initial listeners to existing nav links
+    document.querySelectorAll(navSelector).forEach(function (link) {
+        link.addEventListener('click', handleNavClick);
     });
 
     switchPage('home');
+
+    // Function to generate abbreviated name from title
+    function generateAbbreviation(title) {
+        return title
+            .replace(/[^\w\s-]/g, '') // Remove special characters and emojis (keep hyphens)
+            .split(/[\s-]+/) // Split by spaces and hyphens
+            .filter(word => word.length > 0) // Remove empty strings
+            .map(word => {
+                // If the word is a number, use the entire number
+                if (!isNaN(word)) {
+                    return word.toLowerCase();
+                }
+                return word.charAt(0).toLowerCase();
+            })
+            .join('');
+    }
+
+    // Function to dynamically generate project items in filetree
+    function generateProjectItems() {
+        const projectCards = document.querySelectorAll('.project-card');
+        const projectsNested = document.getElementById('projects-nested');
+        
+        if (!projectsNested || projectCards.length === 0) return;
+        
+        const projectItems = [];
+        
+        projectCards.forEach(function(card, index) {
+            const titleElement = card.querySelector('.project-title');
+            if (!titleElement) return;
+            
+            const title = titleElement.textContent.trim();
+            const abbreviation = generateAbbreviation(title);
+            
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'filetree-item';
+            
+            const link = document.createElement('a');
+            link.href = 'javascript:void(0)';
+            link.className = 'filetree-link';
+            link.setAttribute('data-page', 'projects');
+            link.setAttribute('data-project', abbreviation);
+            link.textContent = abbreviation + '.txt';
+            
+            itemDiv.appendChild(link);
+            
+            projectItems.push(itemDiv);
+        });
+        
+        // Clear existing items and add new ones
+        projectsNested.innerHTML = '';
+        projectItems.forEach(function(item) {
+            projectsNested.appendChild(item);
+        });
+        
+        // Attach event listeners to new project links only
+        projectItems.forEach(function(item) {
+            const link = item.querySelector('.filetree-link');
+            if (link) {
+                link.addEventListener('click', handleNavClick);
+            }
+        });
+    }
+
+    // Generate project items when DOM is ready
+    generateProjectItems();
 
     const homeSubtitleText = document.querySelector('.home-subtitle .home-subtitle-text');
     if (homeSubtitleText) {
@@ -255,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Update size info when the projects page is shown
-    const projectsLink = document.querySelector('.nav-link[data-page="projects"]');
+    const projectsLink = document.querySelector('.filetree-link[data-page="projects"]');
     if (projectsLink) {
         projectsLink.addEventListener('click', function () {
             setTimeout(updateSizeInfo, 100);
