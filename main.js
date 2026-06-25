@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const abbreviation = generateAbbreviation(title);
                     
                     if (abbreviation === project) {
-                        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
                 });
             }, 100);
@@ -180,10 +180,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to generate abbreviated name from title
     function generateAbbreviation(title) {
         return title
-            .replace(/[^\w\s]/g, '') // Remove special characters and emojis
-            .split(' ')
+            .replace(/[^\w\s-]/g, '') // Remove special characters and emojis (keep hyphens)
+            .split(/[\s-]+/) // Split by spaces and hyphens
             .filter(word => word.length > 0) // Remove empty strings
-            .map(word => word.charAt(0).toLowerCase())
+            .map(word => {
+                // If the word is a number, use the entire number
+                if (!isNaN(word)) {
+                    return word.toLowerCase();
+                }
+                return word.charAt(0).toLowerCase();
+            })
             .join('');
     }
 
