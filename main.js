@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const abbreviation = generateAbbreviation(title);
                     
                     if (abbreviation === project) {
-                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        titleElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
                 });
             }, 100);
