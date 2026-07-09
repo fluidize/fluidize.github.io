@@ -156,8 +156,160 @@
 
 .size-info {
     position: absolute;
-    bottom: 0.5rem;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    font-family: 'Departure Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.project-basic-desc {
+    margin: 0;
+    color: var(--text-color);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.project-desc {
+    display: none;
+}
+
+.view-more-btn {
+    position: absolute;
+    bottom: 0.75rem;
     right: 0.75rem;
+    background: var(--primary-color);
+    border: 2px solid var(--accent-color);
+    color: var(--text-color-primary);
+    padding: 0.3rem 0.6rem;
+    font-family: 'Departure Mono', monospace;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.15s ease, color 0.15s ease;
+    box-shadow: none;
+    transform: translate(0, 0);
+    transform-origin: center;
+    box-sizing: border-box;
+}
+
+.view-more-btn::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border: 2px solid transparent;
+    transition: border-color 0.15s ease;
+}
+
+.view-more-btn:hover {
+    background: #fff;
+    color: #000;
+    transform: translate(3px, -3px);
+    box-shadow: -3px 3px 0 #000;
+}
+
+.view-more-btn:hover::before {
+    border-color: #000;
+}
+
+.project-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: none;
+}
+
+.project-modal[aria-hidden="false"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.modal-content {
+    position: relative;
+    max-width: 700px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    background: rgba(10, 10, 15, 0.95);
+    border: var(--border-width) solid var(--accent-color);
+    border-radius: var(--card-radius);
+    padding: 2rem;
+    z-index: 1;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    color: var(--text-color-primary);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    transition: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.modal-close:hover {
+    opacity: 0.7;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.modal-title {
+    font-family: 'Tiny5', monospace;
+    font-size: 1.8rem;
+    color: var(--text-color-primary);
+    margin: 0 0 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.modal-desc {
+    color: var(--text-color);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.modal-link {
+    display: inline-block;
+    font-family: 'Departure Mono', monospace;
+    font-size: 1.1rem;
+    color: var(--text-color-primary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-color);
+    transition: opacity 0.15s;
+}
+
+.modal-link:hover {
+    opacity: 0.8;
+}
+
+.modal-size-info {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
     font-family: 'Departure Mono', monospace;
     font-size: 0.85rem;
     color: var(--text-color);

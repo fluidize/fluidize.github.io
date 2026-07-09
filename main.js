@@ -389,4 +389,82 @@ document.addEventListener('DOMContentLoaded', function () {
         mainContent.addEventListener('scroll', handleScroll);
         handleScroll();
     }
+
+    // Modal functionality for project details
+    const modal = document.getElementById('project-modal');
+    const modalBackdrop = document.getElementById('modal-backdrop');
+    const modalClose = document.getElementById('modal-close');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalLink = document.getElementById('modal-link');
+    const modalSizeInfo = document.getElementById('modal-size-info');
+
+    function openModal(projectId) {
+        const card = document.querySelector(`.project-card[data-project="${projectId}"]`);
+        if (!card) return;
+
+        const title = card.querySelector('.project-title').textContent;
+        const desc = card.querySelector('.project-desc').innerHTML;
+        const link = card.querySelector('.project-link');
+        const githubPath = card.getAttribute('data-github');
+
+        modalTitle.textContent = title;
+        modalDesc.innerHTML = desc;
+        modalLink.href = link.href;
+        modalLink.textContent = link.textContent;
+        modalSizeInfo.textContent = 'Loading...';
+
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+
+        // Fetch and display size info
+        if (githubPath) {
+            const parts = githubPath.split('/');
+            const repo = `${parts[0]}/${parts[1]}`;
+            const path = parts.length > 2 ? parts.slice(2).join('/') : null;
+
+            if (path) {
+                fetchFolderSize(repo, path).then(size => {
+                    modalSizeInfo.textContent = size;
+                });
+            } else {
+                fetchRepoSize(repo).then(size => {
+                    modalSizeInfo.textContent = size;
+                });
+            }
+        } else {
+            modalSizeInfo.textContent = '';
+        }
+    }
+
+    function closeModal() {
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
+    // View More button click handlers
+    document.querySelectorAll('.view-more-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const projectId = this.getAttribute('data-project');
+            openModal(projectId);
+        });
+    });
+
+    // Modal close handlers
+    if (modalClose) {
+        modalClose.addEventListener('click', closeModal);
+    }
+
+    if (modalBackdrop) {
+        modalBackdrop.addEventListener('click', closeModal);
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+            closeModal();
+        }
+    });
 });
