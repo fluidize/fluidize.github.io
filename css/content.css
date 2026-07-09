@@ -59,6 +59,10 @@
     z-index: 1;
 }
 
+.about-section {
+    margin-bottom: 2rem;
+}
+
 .projects-intro {
     margin-top: 1.5rem;
     max-width: 42rem;
