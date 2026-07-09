@@ -109,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const contentAreas = {
         home: document.getElementById('home-content'),
+        about: document.getElementById('about-content'),
         socials: document.getElementById('socials-content'),
         projects: document.getElementById('projects-content'),
     };
