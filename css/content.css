@@ -253,6 +253,8 @@
     border-radius: var(--card-radius);
     padding: 2rem;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .modal-close {
@@ -294,6 +296,29 @@
     font-size: 1rem;
     line-height: 1.7;
     margin-bottom: 1.5rem;
+    flex: 1;
+}
+
+.modal-desc p {
+    margin-bottom: 1rem;
+}
+
+.modal-desc p:empty {
+    margin-bottom: 1.5rem;
+}
+
+.modal-desc img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1rem 0;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
 }
 
 .modal-link {
@@ -311,9 +336,6 @@
 }
 
 .modal-size-info {
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
     font-family: 'Departure Mono', monospace;
     font-size: 0.85rem;
     color: var(--text-color);

@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <button class="view-more-btn" data-project="${project.id}">View More</button>
                     <div class="project-desc">
-                        <p>${Array.isArray(project.desc) ? project.desc.join('<br>') : project.desc.replace(/\n/g, '<br>')}</p>
+                        ${Array.isArray(project.desc) ? project.desc.map(item => item.startsWith('\n') ? `<p></p><p>${item.replace(/^\n/, '')}</p>` : `<p>${item}</p>`).join('') : `<p>${project.desc.replace(/\n/g, '<br>')}</p>`}
                     </div>
                     <a class="project-link" href="${project.link}" target="_blank">${project.link.replace('https://github.com/fluidize', '').replace('/tree/main', '')}/ →</a>
                 `;
