@@ -117,77 +117,7 @@
                         <div class="page-content" id="projects-content">
                             <h1 id="title">Projects</h1>
                             <p class="projects-intro">Check out some of my projects below.<span class="caret">_</span></p>
-                            <ul class="projects-list">
-                                <li class="project-card" data-project="evolution" data-github="fluidize/qtech/trading/brains/evolution">
-                                    <h2 class="project-title">Genetic Algorithms for Algorithmic Trading</h2>
-                                    <p class="project-basic-desc">A genetic algorithm system for evolving trading strategies using Python ASTs and Bayesian optimization.</p>
-                                    <div class="project-meta">
-                                        <span class="project-tag">Algorithmic Trading</span>
-                                        <span class="project-tag">Evolutionary Algorithms</span>
-                                        <span class="project-tag">Bayesian Optimization</span>
-                                    </div>
-                                    <button class="view-more-btn" data-project="evolution">View More</button>
-                                    <div class="project-desc">
-                                        <p>Using python abstract syntax trees to represent genes, algorithms can be randomly generated to process logic between technical indicators and output trading signals.
-                                        An individual consists of a minimum of one indicator gene, two logic genes, and one signal gene to interpret logic.
-                                        Logic is arguably the most important gene and is able to compare two indicators(i2i), an indicator to the price(i2p), or compare an indicator to a constant value(i2c).
-                                        The current implementation uses the following in order: population generation, bayesian optimization(optuna), and staged pruning to find the best performing algorithm within a generated population.</p>
-                                    </div>
-                                    <a class="project-link" href="https://github.com/fluidize/qtech/tree/main/trading/brains/evolution" target="_blank">qtech/trading/brains/evolution/ →</a>
-                                </li>
-                                <li class="project-card" data-project="jupiter" data-github="fluidize/qtech/trading/live/jupiter">
-                                    <h2 class="project-title">Jupiter-Based Live Trading System</h2>
-                                    <p class="project-basic-desc">A live trading system using Jupiter DEX API with asynchronous market data streaming and paper trading.</p>
-                                    <div class="project-meta">
-                                        <span class="project-tag">Algorithmic Trading</span>
-                                        <span class="project-tag">Live Trading</span>
-                                    </div>
-                                    <button class="view-more-btn" data-project="jupiter">View More</button>
-                                    <div class="project-desc">
-                                        <p>Through the Jupiter Decentralized Exchange API, this system takes in an algorithm(any python function) and asynchronously feeds market data to it.
-                                        Market data is streamed from sources such as binance, and trades made by the algorithm are processed through the Jupiter Aggregator.
-                                        Features a live paper trading mode for forward testing. Latency and small price mismatches(between data source and DEX) are expected.</p>
-                                    </div>
-                                    <a class="project-link" href="https://github.com/fluidize/qtech/tree/main/trading/live/jupiter" target="_blank">qtech/trading/live/jupiter/ →</a>
-                                </li>
-                                <li class="project-card" data-project="allocation" data-github="fluidize/qtech/trading/brains/allocation">
-                                    <h2 class="project-title">Differentiable RL for Optimal Asset Allocation</h2>
-                                    <p class="project-basic-desc">A differentiable reinforcement learning approach for optimizing asset allocation using backpropagation.</p>
-                                    <div class="project-meta">
-                                        <span class="project-tag">Algorithmic Trading</span>
-                                        <span class="project-tag">Neural Networks</span>
-                                        <span class="project-tag">Reinforcement Learning</span>
-                                    </div>
-                                    <button class="view-more-btn" data-project="allocation">View More</button>
-                                    <div class="project-desc">
-                                        <p>The policy uses two encoders, one creating embeddings through 1D Convolution and the other with LSTMs.
-                                        The learning/trading environment uses PyTorch's functions to allow a computational graph to be formed between the policy's trades and a metric.
-                                        In this way, the policy can be trained to directly optimize for the metric using standard backpropagation instead of traditional reinforcement learning methods.
-                                        To introduce exploration during training, the policy predicts a normal distribution of allocations(mu and log-sigma), where an allocation is randomly sampled.
-                                        Using action sampling also appears to stabilize the train loss, reducing erratic train losses that may hinder the policy.</p>
-                                    </div>
-                                    <a class="project-link" href="https://github.com/fluidize/qtech/tree/main/trading/brains/allocation" target="_blank">qtech/trading/brains/allocation/ →</a>
-                                </li>
-                                <li class="project-card" data-project="birdclef" data-github="fluidize/BirdCLEF-2026">
-                                    <h2 class="project-title">BirdCLEF 2026 🐦</h2>
-                                    <p class="project-basic-desc">A bird sound classification model using EfficientNet-b0 with attention pooling and GLU layers.</p>
-                                    <div class="project-meta">
-                                        <span class="project-tag">Neural Networks</span>
-                                        <span class="project-tag">Classification</span>
-                                        <span class="project-tag">Kaggle</span>
-                                    </div>
-                                    <button class="view-more-btn" data-project="birdclef">View More</button>
-                                    <div class="project-desc">
-                                        <p>Starting from a Mel-scaled spectrogram, the efficientnet-b0 Convolutional Neural Network(with pretrained weights for faster convergence) is used as the model backbone to generate convoluted embeddings.
-                                        To efficiently reduce embedding dimensions, multi-scale adaptive average pooling combined with attention pooling give the main classifier network a widened perspective on the bird sounds.
-                                        In intermediary steps(between embedding and classification), GLUs(gated linear units) are used to create a "focusing" effect, allowing the network to learn which features to prioritize without using expensive self-attention.
-                                        It is crucial that the GLU weights are initialized close to 1, otherwise the randomly generated weights may interfere with learning.
-                                        Although performing below distilled Perch-based models, combining this architecture with time+frequency masking and temperature scaling gave a final score of 
-                                        <span style="font-size: 1.25em; color: white;">0.79241!</span></p>
-                                    </div>
-                                    <a class="project-link" href="https://github.com/fluidize/BirdCLEF-2026" target="_blank">BirdCLEF-2026 →</a>
-                                </li>
-                            </ul>
+                            <ul class="projects-list"></ul> <!-- automatically populated in main.js -->
                         </div>
                     </div>
                 </div>
@@ -212,6 +142,7 @@
     </div>
 
     <script src="main.js"></script>
+    <script src="projects.js"></script>
 </body>
 
 </html>

@@ -240,8 +240,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Generate project items when DOM is ready
-    generateProjectItems();
+    // Make generateProjectItems globally accessible for projects.js
+    window.generateProjectItems = generateProjectItems;
 
     const homeSubtitleText = document.querySelector('.home-subtitle .home-subtitle-text');
     if (homeSubtitleText) {
@@ -438,20 +438,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Make openModal globally accessible for projects.js
+    window.openModal = openModal;
+
     function closeModal() {
         modal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
     }
-
-    // View More button click handlers
-    document.querySelectorAll('.view-more-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const projectId = this.getAttribute('data-project');
-            openModal(projectId);
-        });
-    });
 
     // Modal close handlers
     if (modalClose) {

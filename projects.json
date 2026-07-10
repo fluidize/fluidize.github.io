@@ -1,0 +1,59 @@
+[
+  {
+    "id": "evolution",
+    "title": "Genetic Algorithms for Algorithmic Trading",
+    "basicDesc": "A genetic algorithm system for evolving trading strategies using Python ASTs and Bayesian optimization.",
+    "tags": ["Algorithmic Trading", "Evolutionary Algorithms", "Bayesian Optimization"],
+    "desc": [
+      "Using python abstract syntax trees to represent genes, algorithms can be randomly generated to process logic between technical indicators and output trading signals.",
+      "An individual consists of a minimum of one indicator gene, two logic genes, and one signal gene to interpret logic.",
+      "Logic is arguably the most important gene and is able to compare two indicators(i2i), an indicator to the price(i2p), or compare an indicator to a constant value(i2c).",
+      "The current implementation uses the following in order: population generation, bayesian optimization(optuna), and staged pruning to find the best performing algorithm within a generated population."
+    ],
+    "link": "https://github.com/fluidize/qtech/tree/main/trading/brains/evolution",
+    "github": "fluidize/qtech/trading/brains/evolution"
+  },
+  {
+    "id": "jupiter",
+    "title": "Jupiter-Based Live Trading System",
+    "basicDesc": "A live trading system using Jupiter DEX API with asynchronous market data streaming and paper trading.",
+    "tags": ["Algorithmic Trading", "Live Trading"],
+    "desc": [
+      "Through the Jupiter Decentralized Exchange API, this system takes in an algorithm(any python function) and asynchronously feeds market data to it.",
+      "Market data is streamed from sources such as binance, and trades made by the algorithm are processed through the Jupiter Aggregator.",
+      "Features a live paper trading mode for forward testing. Latency and small price mismatches(between data source and DEX) are expected."
+    ],
+    "link": "https://github.com/fluidize/qtech/tree/main/trading/live/jupiter",
+    "github": "fluidize/qtech/trading/live/jupiter"
+  },
+  {
+    "id": "allocation",
+    "title": "Differentiable RL for Optimal Asset Allocation",
+    "basicDesc": "A differentiable reinforcement learning approach for optimizing asset allocation using backpropagation.",
+    "tags": ["Algorithmic Trading", "Neural Networks", "Reinforcement Learning"],
+    "desc": [
+      "The policy uses two encoders, one creating embeddings through 1D Convolution and the other with LSTMs.",
+      "The learning/trading environment uses PyTorch's functions to allow a computational graph to be formed between the policy's trades and a metric.",
+      "In this way, the policy can be trained to directly optimize for the metric using standard backpropagation instead of traditional reinforcement learning methods.",
+      "To introduce exploration during training, the policy predicts a normal distribution of allocations(mu and log-sigma), where an allocation is randomly sampled.",
+      "Using action sampling also appears to stabilize the train loss, reducing erratic train losses that may hinder the policy."
+    ],
+    "link": "https://github.com/fluidize/qtech/tree/main/trading/brains/allocation",
+    "github": "fluidize/qtech/trading/brains/allocation"
+  },
+  {
+    "id": "birdclef",
+    "title": "BirdCLEF 2026 🐦",
+    "basicDesc": "A bird sound classification model using EfficientNet-b0 with attention pooling and GLU layers.",
+    "tags": ["Neural Networks", "Classification", "Kaggle"],
+    "desc": [
+      "Starting from a Mel-scaled spectrogram, the efficientnet-b0 Convolutional Neural Network(with pretrained weights for faster convergence) is used as the model backbone to generate convoluted embeddings.",
+      "To efficiently reduce embedding dimensions, multi-scale adaptive average pooling combined with attention pooling give the main classifier network a widened perspective on the bird sounds.",
+      "In intermediary steps(between embedding and classification), GLUs(gated linear units) are used to create a \"focusing\" effect, allowing the network to learn which features to prioritize without using expensive self-attention.",
+      "It is crucial that the GLU weights are initialized close to 1, otherwise the randomly generated weights may interfere with learning.",
+      "Although performing below distilled Perch-based models, combining this architecture with time+frequency masking and temperature scaling gave a final score of <span style=\"font-size: 1.25em; color: white;\">0.79241!</span>"
+    ],
+    "link": "https://github.com/fluidize/BirdCLEF-2026",
+    "github": "fluidize/BirdCLEF-2026"
+  }
+]
