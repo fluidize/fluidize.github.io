@@ -6,10 +6,9 @@
     "tags": ["Algorithmic Trading", "Evolutionary Algorithms", "Bayesian Optimization"],
     "desc": [
       "Using python abstract syntax trees to represent genes, algorithms can be randomly generated to process logic between technical indicators and output trading signals.",
-      "An individual consists of a minimum of one indicator gene, two logic genes, and one signal gene to interpret logic.",
-      "Logic is arguably the most important gene and is able to compare two indicators(i2i), an indicator to the price(i2p), or compare an indicator to a constant value(i2c).",
+      "An individual consists of a minimum of one indicator gene, two logic genes, and one signal gene to interpret logic. Logic is arguably the most important gene and is able to compare two indicators(i2i), an indicator to the price(i2p), or compare an indicator to a constant value(i2c).",
       "The current implementation uses the following in order: population generation, bayesian optimization(optuna), and staged pruning to find the best performing algorithm within a generated population.",
-      "\nHere are some examples of generated algorithms:",
+      "<u>Here are examples of generated algorithms (converted to code):</u>",
       "<img src=\"images/projects/evolution_simple.png\" alt=\"Simple evolution diagram\">",
       "<img src=\"images/projects/evolution_complex.png\" alt=\"Complex evolution diagram\">"
     ],
@@ -32,14 +31,19 @@
   {
     "id": "allocation",
     "title": "Differentiable RL for Optimal Asset Allocation",
-    "basicDesc": "A differentiable reinforcement learning approach for optimizing a model's actions using backpropagation.",
+    "basicDesc": "A differentiable reinforcement learning approach for optimizing a policy's actions using backpropagation.",
     "tags": ["Algorithmic Trading", "Neural Networks", "Reinforcement Learning"],
     "desc": [
       "The policy uses two encoders, one creating embeddings through 1D Convolution and the other with LSTMs.",
-      "The learning/trading environment uses PyTorch's functions to allow a computational graph to be formed between the policy's trades and a metric.",
-      "In this way, the policy can be trained to directly optimize for the metric using standard backpropagation instead of traditional reinforcement learning methods.",
-      "To introduce exploration during training, the policy predicts a normal distribution of allocations(mu and log-sigma), where an allocation is randomly sampled.",
-      "Using action sampling also appears to stabilize the train loss, reducing erratic train losses that may hinder the policy."
+      "The learning/trading environment uses PyTorch's functions to allow a computational graph to be formed between the policy's trades and a metric. In this way, the policy can be trained to directly optimize for the metric using standard backpropagation instead of traditional reinforcement learning methods.",
+      "To introduce exploration during training, the policy predicts a normal distribution of allocations(mu and log-sigma), where an allocation is randomly sampled. Using action sampling also appears to stabilize the train loss, reducing erratic train losses that may hinder the policy.",
+      "The model struggles to perform out-of-sample, likely due to overfitting and weak signals within input features.",
+      "<u>Loss Curve from 512 Epochs:</u>",
+      "<img src=\"images/projects/allocation_losses.png\" alt=\"Allocation loss diagram\">",
+      "<u>In-Sample Performance:</u>",
+      "<img src=\"images/projects/allocation_train.png\" alt=\"Allocation train diagram\">",
+      "<u>Out-of-Sample Performance:</u>",
+      "<img src=\"images/projects/allocation_val.png\" alt=\"Allocation validation diagram\">"
     ],
     "link": "https://github.com/fluidize/qtech/tree/main/trading/brains/allocation",
     "github": "fluidize/qtech/trading/brains/allocation"
