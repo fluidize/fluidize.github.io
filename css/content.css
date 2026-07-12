@@ -349,6 +349,10 @@
     text-decoration: none;
     border-bottom: 1px solid var(--accent-color);
     transition: opacity 0.15s;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .modal-link:hover {
@@ -408,5 +412,9 @@
 @media (max-width: 768px) {
     .socials-links li {
         padding-right: 0.25rem;
+    }
+
+    .modal-size-info {
+        display: none;
     }
 }

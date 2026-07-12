@@ -32,7 +32,7 @@
   {
     "id": "allocation",
     "title": "Differentiable RL for Optimal Asset Allocation",
-    "basicDesc": "A differentiable reinforcement learning approach for optimizing asset allocation using backpropagation.",
+    "basicDesc": "A differentiable reinforcement learning approach for optimizing a model's actions using backpropagation.",
     "tags": ["Algorithmic Trading", "Neural Networks", "Reinforcement Learning"],
     "desc": [
       "The policy uses two encoders, one creating embeddings through 1D Convolution and the other with LSTMs.",
