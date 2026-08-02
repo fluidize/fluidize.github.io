@@ -510,30 +510,32 @@ document.addEventListener('DOMContentLoaded', function () {
     // Check URL hash for auto-opening project cards
     function checkUrlHash() {
         const hash = window.location.hash;
-        if (hash) {
-            // Handle #project=id format
-            if (hash.startsWith('#project=')) {
-                const projectId = hash.replace('#project=', '');
-                // Switch to projects page first
-                const projectsLink = document.querySelector('[data-page="projects"]');
-                if (projectsLink) {
-                    projectsLink.click();
-                    // Wait for page switch and modal to be available
+        if (hash && hash.startsWith('#project=')) {
+            const projectId = hash.replace('#project=', '');
+            
+            // Wait for projects to be loaded
+            const waitForProjects = setInterval(() => {
+                const projectCard = document.querySelector(`.project-card[data-project="${projectId}"]`);
+                if (projectCard) {
+                    clearInterval(waitForProjects);
+                    // Switch to projects page if not already there
+                    const projectsLink = document.querySelector('[data-page="projects"]');
+                    if (projectsLink) {
+                        projectsLink.click();
+                    }
+                    // Wait for page switch then open modal
                     setTimeout(() => {
                         if (window.openModal) {
                             window.openModal(projectId);
                         }
                     }, 300);
                 }
-            }
-            // Handle #id format (project abbreviation)
-            else {
-                const projectAbbr = hash.replace('#', '');
-                const projectLink = document.querySelector(`[data-project="${projectAbbr}"]`);
-                if (projectLink) {
-                    projectLink.click();
-                }
-            }
+            }, 100);
+            
+            // Timeout after 5 seconds
+            setTimeout(() => {
+                clearInterval(waitForProjects);
+            }, 5000);
         }
     }
 
