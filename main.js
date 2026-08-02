@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const inspiredBtn = document.getElementById('inspired-btn');
     const menuToggle = document.getElementById('menu-toggle');
     const sidebarBackdrop = document.getElementById('sidebar-backdrop');
     const menuHint = document.querySelector('.menu-hint');
@@ -79,11 +78,6 @@ document.addEventListener('DOMContentLoaded', function () {
         window.open(url, '_blank', 'noopener,noreferrer');
     }
 
-    if (inspiredBtn) {
-        inspiredBtn.addEventListener('click', function () {
-            openInNewTab('https://cyberspace.online');
-        });
-    }
 
     document.querySelectorAll('#socials-content [data-url]').forEach(function (btn) {
         btn.addEventListener('click', function () {
@@ -460,5 +454,56 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
             closeModal();
         }
+        if (e.key === 'Escape' && lightbox.getAttribute('aria-hidden') === 'false') {
+            closeLightbox();
+        }
     });
+
+    // Lightbox functionality for image enlargement
+    const lightbox = document.getElementById('lightbox');
+    const lightboxBackdrop = document.getElementById('lightbox-backdrop');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    function openLightbox(imgSrc) {
+        lightboxImg.src = imgSrc;
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+            lightboxImg.src = '';
+        }, 300);
+    }
+
+    // Attach click handlers to images in modal descriptions
+    function attachImageClickHandlers() {
+        document.querySelectorAll('.modal-desc img').forEach(img => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openLightbox(this.src);
+            });
+        });
+    }
+
+    // Call image click handlers after modal opens
+    const originalOpenModal = window.openModal;
+    window.openModal = function(projectId) {
+        originalOpenModal(projectId);
+        setTimeout(attachImageClickHandlers, 100);
+    };
+
+    // Lightbox close handlers
+    if (lightboxClose) {
+        lightboxClose.addEventListener('click', closeLightbox);
+    }
+
+    if (lightboxBackdrop) {
+        lightboxBackdrop.addEventListener('click', closeLightbox);
+    }
 });

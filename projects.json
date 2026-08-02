@@ -16,19 +16,6 @@
     "github": "fluidize/qtech/trading/brains/evolution"
   },
   {
-    "id": "jupiter",
-    "title": "Jupiter-Based Live Trading System",
-    "basicDesc": "A live trading system using Jupiter DEX API with asynchronous market data streaming and paper trading.",
-    "tags": ["Algorithmic Trading", "Live Trading"],
-    "desc": [
-      "Through the Jupiter Decentralized Exchange API, this system takes in an algorithm(any python function) and asynchronously feeds market data to it.",
-      "Market data is streamed from sources such as binance, and trades made by the algorithm are processed through the Jupiter Aggregator.",
-      "Features a live paper trading mode for forward testing. Latency and small price mismatches(between data source and DEX) are expected."
-    ],
-    "link": "https://github.com/fluidize/qtech/tree/main/trading/live/jupiter",
-    "github": "fluidize/qtech/trading/live/jupiter"
-  },
-  {
     "id": "allocation",
     "title": "Differentiable RL for Optimal Asset Allocation",
     "basicDesc": "A differentiable reinforcement learning approach for optimizing a policy's actions using backpropagation.",
@@ -37,13 +24,15 @@
       "The policy uses two encoders, one creating embeddings through 1D Convolution and the other with LSTMs.",
       "The learning/trading environment uses PyTorch's functions to allow a computational graph to be formed between the policy's trades and a metric. In this way, the policy can be trained to directly optimize for the metric using standard backpropagation instead of traditional reinforcement learning methods.",
       "To introduce exploration during training, the policy predicts a normal distribution of allocations(mu and log-sigma), where an allocation is randomly sampled. Using action sampling also appears to stabilize the train loss, reducing erratic train losses that may hinder the policy.",
-      "The model struggles to perform out-of-sample, likely due to overfitting and weak signals within input features.",
-      "<u>Loss Curve from 512 Epochs:</u>",
-      "<img src=\"images/projects/allocation_losses.png\" alt=\"Allocation loss diagram\">",
+      "Gated linear units applied on inputs and Kanming weight initialization improved the policy's stability and backtest performances.*",
+      "Additionally, the policy is trained on a loss function borrowed from a Hull Tactical Kaggle competition.",
+      "<u>Loss Curve from 1024 Epochs:</u>",
+      "<img src=\"images/projects/allocation_training_metrics.png\" alt=\"Allocation loss diagram\">",
       "<u>In-Sample Performance:</u>",
       "<img src=\"images/projects/allocation_train.png\" alt=\"Allocation train diagram\">",
       "<u>Out-of-Sample Performance:</u>",
-      "<img src=\"images/projects/allocation_val.png\" alt=\"Allocation validation diagram\">"
+      "<img src=\"images/projects/allocation_val.png\" alt=\"Allocation validation diagram\">",
+      "<sub>* Trading commisions/fees are not modeled in the environment.</sub>"
     ],
     "link": "https://github.com/fluidize/qtech/tree/main/trading/brains/allocation",
     "github": "fluidize/qtech/trading/brains/allocation"
@@ -62,5 +51,18 @@
     ],
     "link": "https://github.com/fluidize/BirdCLEF-2026",
     "github": "fluidize/BirdCLEF-2026"
+  },
+  {
+    "id": "jupiter",
+    "title": "Jupiter-Based Live Trading System",
+    "basicDesc": "A live trading system using Jupiter DEX API with asynchronous market data streaming and paper trading.",
+    "tags": ["Algorithmic Trading", "Live Trading"],
+    "desc": [
+      "Through the Jupiter Decentralized Exchange API, this system takes in an algorithm(any python function) and asynchronously feeds market data to it.",
+      "Market data is streamed from sources such as binance, and trades made by the algorithm are processed through the Jupiter Aggregator.",
+      "Features a live paper trading mode for forward testing. Latency and small price mismatches(between data source and DEX) are expected."
+    ],
+    "link": "https://github.com/fluidize/qtech/tree/main/trading/live/jupiter",
+    "github": "fluidize/qtech/trading/live/jupiter"
   }
 ]
