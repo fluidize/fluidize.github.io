@@ -1,10 +1,9 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Load projects from JSON and generate cards
-    async function loadProjects() {
-        try {
-            const response = await fetch('projects.json');
-            const projects = await response.json();
-            const projectsList = document.querySelector('.projects-list');
+// Load projects from JSON and generate cards
+async function loadProjects() {
+    try {
+        const response = await fetch('projects.json');
+        const projects = await response.json();
+        const projectsList = document.querySelector('.projects-list');
             
             projects.forEach(project => {
                 const card = document.createElement('li');
@@ -51,4 +50,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Load projects from JSON
     loadProjects();
-});

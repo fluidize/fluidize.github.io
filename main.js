@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Initialize projects loaded flag
+    window.projectsLoaded = false;
+    
     const menuToggle = document.getElementById('menu-toggle');
     const sidebarBackdrop = document.getElementById('sidebar-backdrop');
     const menuHint = document.querySelector('.menu-hint');
@@ -510,32 +513,30 @@ document.addEventListener('DOMContentLoaded', function () {
     // Check URL hash for auto-opening project cards
     function checkUrlHash() {
         const hash = window.location.hash;
-        if (hash && hash.startsWith('#project=')) {
-            const projectId = hash.replace('#project=', '');
+        if (hash && (hash.startsWith('#project=') || hash.startsWith('#projects='))) {
+            const projectId = hash.replace('#project=', '').replace('#projects=', '');
             
-            // Wait for projects to be loaded
-            const waitForProjects = setInterval(() => {
-                const projectCard = document.querySelector(`.project-card[data-project="${projectId}"]`);
-                if (projectCard) {
-                    clearInterval(waitForProjects);
-                    // Switch to projects page if not already there
-                    const projectsLink = document.querySelector('[data-page="projects"]');
-                    if (projectsLink) {
-                        projectsLink.click();
-                    }
-                    // Wait for page switch then open modal
-                    setTimeout(() => {
-                        if (window.openModal) {
-                            window.openModal(projectId);
-                        }
-                    }, 300);
+            // Switch to projects page
+            const projectsLink = document.querySelector('[data-page="projects"]');
+            if (projectsLink) {
+                projectsLink.click();
+            }
+            
+            // Poll for project card to appear
+            let attempts = 0;
+            const maxAttempts = 50; // 5 seconds
+            
+            const checkForCard = setInterval(() => {
+                attempts++;
+                const card = document.querySelector(`.project-card[data-project="${projectId}"]`);
+                
+                if (card && window.openModal) {
+                    clearInterval(checkForCard);
+                    window.openModal(projectId);
+                } else if (attempts >= maxAttempts) {
+                    clearInterval(checkForCard);
                 }
             }, 100);
-            
-            // Timeout after 5 seconds
-            setTimeout(() => {
-                clearInterval(waitForProjects);
-            }, 5000);
         }
     }
 
