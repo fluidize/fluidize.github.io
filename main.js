@@ -506,4 +506,40 @@ document.addEventListener('DOMContentLoaded', function () {
     if (lightboxBackdrop) {
         lightboxBackdrop.addEventListener('click', closeLightbox);
     }
+
+    // Check URL hash for auto-opening project cards
+    function checkUrlHash() {
+        const hash = window.location.hash;
+        if (hash) {
+            // Handle #project=id format
+            if (hash.startsWith('#project=')) {
+                const projectId = hash.replace('#project=', '');
+                // Switch to projects page first
+                const projectsLink = document.querySelector('[data-page="projects"]');
+                if (projectsLink) {
+                    projectsLink.click();
+                    // Wait for page switch and modal to be available
+                    setTimeout(() => {
+                        if (window.openModal) {
+                            window.openModal(projectId);
+                        }
+                    }, 300);
+                }
+            }
+            // Handle #id format (project abbreviation)
+            else {
+                const projectAbbr = hash.replace('#', '');
+                const projectLink = document.querySelector(`[data-project="${projectAbbr}"]`);
+                if (projectLink) {
+                    projectLink.click();
+                }
+            }
+        }
+    }
+
+    // Check hash on page load
+    checkUrlHash();
+
+    // Check hash on hash change
+    window.addEventListener('hashchange', checkUrlHash);
 });
