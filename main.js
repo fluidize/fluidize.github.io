@@ -514,6 +514,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function checkUrlHash() {
         const hash = window.location.hash;
         if (hash && (hash.startsWith('#project=') || hash.startsWith('#projects='))) {
+            // Hide menu hint
+            const menuHint = document.querySelector('.menu-hint');
+            if (menuHint) {
+                menuHint.style.display = 'none';
+            }
+            
             const projectId = hash.replace('#project=', '').replace('#projects=', '');
             
             // Switch to projects page
