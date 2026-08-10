@@ -116,7 +116,7 @@
 .project-desc {
     margin: 0;
     color: var(--text-color);
-    font-family: 'Share Tech Mono', monospace;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 1rem;
     line-height: 1.6;
 }
@@ -171,7 +171,7 @@
 .project-basic-desc {
     margin: 0;
     color: var(--text-color);
-    font-family: 'Share Tech Mono', monospace;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 1rem;
     line-height: 1.6;
 }
@@ -312,11 +312,15 @@
 
 .modal-desc {
     color: var(--text-color);
-    font-family: 'Share Tech Mono', monospace;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 1rem;
     line-height: 1.7;
     margin-bottom: 1.5rem;
     flex: 1;
+}
+
+.modal-desc a {
+    color: var(--accent-color);
 }
 
 .modal-desc p {

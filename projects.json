@@ -1,5 +1,41 @@
 [
   {
+    "id": "allocation",
+    "title": "Differentiable RL in Asset Allocation",
+    "basicDesc": "A differentiable reinforcement learning approach for optimizing a policy.",
+    "tags": ["Algorithmic Trading", "Neural Networks", "Reinforcement Learning"],
+    "desc": [
+      "Through Pytorch's functions, the learning/trading environment can form a computational graph between the policy's trades and a loss metric. In this way, the policy can be trained to directly optimize for the metric using standard backpropagation instead of traditional reinforcement learning methods.",
+      "Train and validation loss converge slowly and require many epochs to realize improvements.",
+      "<h2><u>The Sequential Transform Layer:</u></h2>",
+      "The interesting part of the policy, the STL(sequential transform layer), was inspired by <a href=\"https://en.wikipedia.org/wiki/Generalized_linear_model\">GLMs</a>(generalized linear models).",
+      "A standard GLM follows the form:",
+      "\\[ y = \\beta_0 + \\sum_{i} \\beta_i g(x_i) \\]",
+      "where \\(g\\) is the link function that creates transformations.",
+      "Similarly, the STL is defined by:",
+      "\\[ z = w_0 + \\sum_{i}\\sum_{j}w_ig_j(\\mathbf{x}_i) \\]",
+      "where \\( g_j: \\mathbb{R}^n \\to \\mathbb{R}^n \\) and \\( \\mathbf{x}_i \\) is a feature of sequence length n.",
+      "The link function in this case, \\( g_j \\), uses a dimension-preserving function selected from a set including: the identity function(no transform), discrete Fourier transform(with negative bins), rolling standard deviation, rolling maximum/minimum, velocity, acceleration, moving averages(with padding), etc., based on the index \\( j \\). All combinations between \\( \\mathbf{x}_i \\) and \\( g_j \\) are weighed and summed.",
+      "With learnable weights, additivity, and layer stacking, the model can learn which transformations are most valuable inside the function set and create complex sequential features from nested transformations.",
+      "It is possible to use the complex values from the DFT to create a complex-valued network, but the current implementation separates the complex terms and converts it to a real values for simplicity.",
+      "<h2><u>Policy Architecture</u></h2>",
+      "The policy uses two encoders, one creating embeddings through 1D Convolution and the other with LSTMs.",
+      "To introduce exploration during training, the policy predicts a normal distribution of allocations(mu and log-sigma), where an allocation is randomly sampled. Using action sampling also appears to stabilize the policy's convergence.",
+      "Gated linear units applied on features, Kaiming weight initialization, and a custom loss metric borrowed from a Hull Tactical Kaggle competition greatly improved the policy's training stability and backtest performances.",
+      "<img src=\"images/projects/allocation_architecture.png\" alt=\"Allocation architecture diagram\">",
+      "<h2><u>Policy Evaluation:</u></h2>",
+      "<u>Loss Curve from 1024 Epochs:</u>",
+      "<img src=\"images/projects/allocation_training_metrics.png\" alt=\"Allocation loss diagram\">",
+      "<u>In-Sample Performance:<sup>*</sup></u>",
+      "<img src=\"images/projects/allocation_train.png\" alt=\"Allocation train diagram\">",
+      "<u>Out-of-Sample Performance:<sup>*</sup></u>",
+      "<img src=\"images/projects/allocation_val.png\" alt=\"Allocation validation diagram\">",
+      "<sub>* Trading commisions/fees are not modeled in the environment.</sub>"
+    ],
+    "link": "https://github.com/fluidize/qtech/tree/main/trading/brains/allocation",
+    "github": "fluidize/qtech/trading/brains/allocation"
+  },
+  {
     "id": "evolution",
     "title": "Genetic Algorithms for Algorithmic Trading",
     "basicDesc": "A genetic algorithm system for evolving trading strategies using Python ASTs and Bayesian optimization.",
@@ -14,30 +50,6 @@
     ],
     "link": "https://github.com/fluidize/qtech/tree/main/trading/brains/evolution",
     "github": "fluidize/qtech/trading/brains/evolution"
-  },
-  {
-    "id": "allocation",
-    "title": "Differentiable RL for Optimal Asset Allocation",
-    "basicDesc": "A differentiable reinforcement learning approach for optimizing a policy's actions using backpropagation.",
-    "tags": ["Algorithmic Trading", "Neural Networks", "Reinforcement Learning"],
-    "desc": [
-      "The policy uses two encoders, one creating embeddings through 1D Convolution and the other with LSTMs.",
-      "The learning/trading environment uses PyTorch's functions to allow pytorch's computational graph to be formed between the policy's trades and a metric. In this way, the policy can be trained to directly optimize for the metric using standard backpropagation instead of traditional reinforcement learning methods.",
-      "To introduce exploration during training, the policy predicts a normal distribution of allocations(mu and log-sigma), where an allocation is randomly sampled. Using action sampling also appears to stabilize the policy's convergence.",
-      "Gated linear units applied on features, Kaiming weight initialization, and a custom loss function borrowed from a Hull Tactical Kaggle competition greatly improved the policy's training stability and backtest performances.",
-      "Train and validation loss converge very slowly and require many epochs to realize improvements.",
-      "<h2><u>Model Architecture and Evaluation:</u></h2>",
-      "<img src=\"images/projects/allocation_architecture.png\" alt=\"Allocation architecture diagram\">",
-      "<u>Loss Curve from 1024 Epochs:</u>",
-      "<img src=\"images/projects/allocation_training_metrics.png\" alt=\"Allocation loss diagram\">",
-      "<u>In-Sample Performance:*</u>",
-      "<img src=\"images/projects/allocation_train.png\" alt=\"Allocation train diagram\">",
-      "<u>Out-of-Sample Performance:*</u>",
-      "<img src=\"images/projects/allocation_val.png\" alt=\"Allocation validation diagram\">",
-      "<sub>* Trading commisions/fees are not modeled in the environment.</sub>"
-    ],
-    "link": "https://github.com/fluidize/qtech/tree/main/trading/brains/allocation",
-    "github": "fluidize/qtech/trading/brains/allocation"
   },
   {
     "id": "birdclef",

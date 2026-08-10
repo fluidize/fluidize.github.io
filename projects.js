@@ -25,6 +25,13 @@ async function loadProjects() {
                 projectsList.appendChild(card);
             });
 
+            // Re-typeset MathJax after dynamically adding cards
+            if (window.MathJax && MathJax.typesetPromise) {
+                MathJax.typesetPromise().catch(function (err) {
+                    console.error('MathJax typeset error:', err);
+                });
+            }
+
             // Re-attach view more button event listeners after generating cards
             attachViewMoreListeners();
 
