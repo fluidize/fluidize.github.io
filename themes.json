@@ -11,7 +11,7 @@
         "selected-color": "#39ff14",
         "page-bg": "#000000",
         "text-color-primary": "#f4f4fc",
-        "text-color": "#d0d0e8",
+        "text-color-secondary": "#d0d0e8",
         "hover-bg": "#ffffff",
         "hover-text": "#000000",
         "hover-border": "#000000",
@@ -24,7 +24,8 @@
         "card-bg": "rgba(0, 0, 0, 0.12)",
         "modal-bg": "rgba(10, 10, 15, 0.95)",
         "border-width": "1px",
-        "card-radius": "4px"
+        "card-radius": "4px",
+        "contribution-color": "#6a6acd"
       }
     },
     "arctic": {
@@ -38,7 +39,7 @@
         "selected-color": "#2a2ab8",
         "page-bg": "#000000",
         "text-color-primary": "#1a1a2e",
-        "text-color": "#3a3a55",
+        "text-color-secondary": "#3a3a55",
         "hover-bg": "#ffffff",
         "hover-text": "#000000",
         "hover-border": "#000000",
@@ -51,7 +52,8 @@
         "card-bg": "#f0f0fa",
         "modal-bg": "#fafaff",
         "border-width": "1px",
-        "card-radius": "4px"
+        "card-radius": "4px",
+        "contribution-color": "#4a4ab8"
       }
     },
     "storm": {
@@ -65,7 +67,7 @@
         "selected-color": "#c0d0e8",
         "page-bg": "#080810",
         "text-color-primary": "#c0d0e8",
-        "text-color": "#99a9bf",
+        "text-color-secondary": "#99a9bf",
         "hover-bg": "#c0d0e8",
         "hover-text": "#080810",
         "hover-border": "#c0d0e8",
@@ -78,6 +80,7 @@
         "modal-bg": "rgba(8, 8, 16, 0.96)",
         "border-width": "1.5px",
         "card-radius": "1px",
+        "contribution-color": "#a0b4dc",
         "hover-shadow": "rgba(160, 180, 220, 0.4)"
       }
     },
@@ -92,7 +95,7 @@
         "selected-color": "#00ff41",
         "page-bg": "#000000",
         "text-color-primary": "#00ff41",
-        "text-color": "#3cff6b",
+        "text-color-secondary": "#3cff6b",
         "hover-bg": "#003300",
         "hover-text": "#00ff41",
         "hover-border": "#00ff41",
@@ -105,7 +108,8 @@
         "card-bg": "rgba(0, 0, 0, 0.12)",
         "modal-bg": "rgba(10, 10, 15, 0.95)",
         "border-width": "1px",
-        "card-radius": "4px"
+        "card-radius": "4px",
+        "contribution-color": "#00ff41"
       }
     }
   }

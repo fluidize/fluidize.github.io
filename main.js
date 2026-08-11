@@ -92,6 +92,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (contentAreas[page]) {
             contentAreas[page].style.display = 'block';
         }
+        if (menuHint) {
+            menuHint.style.display = page === 'home' ? '' : 'none';
+        }
         document.querySelectorAll(navSelector).forEach(function (link) {
             link.classList.toggle('active', link.getAttribute('data-page') === page && !link.getAttribute('data-project'));
         });

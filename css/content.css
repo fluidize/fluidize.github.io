@@ -43,7 +43,7 @@
 }
 
 .home-subtitle {
-    color: var(--text-color);
+    color: var(--text-color-secondary);
     font-size: 1.2rem;
     font-weight: 400;
     text-align: center;
@@ -63,10 +63,54 @@
     margin-bottom: 2rem;
 }
 
+.github-contributions {
+    border: var(--border-width) solid var(--accent-color);
+    border-radius: var(--card-radius);
+    background: var(--card-bg);
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+.github-contributions svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.github-contributions text {
+    fill: var(--chart-axis-color);
+    font-family: var(--chart-axis-font);
+    text-shadow: none;
+}
+
+.contrib-cell {
+    shape-rendering: crispEdges;
+}
+
+.contrib-cell.l0 {
+    fill: color-mix(in srgb, var(--contribution-color) 10%, transparent);
+}
+
+.contrib-cell.l1 {
+    fill: color-mix(in srgb, var(--contribution-color) 30%, transparent);
+}
+
+.contrib-cell.l2 {
+    fill: color-mix(in srgb, var(--contribution-color) 50%, transparent);
+}
+
+.contrib-cell.l3 {
+    fill: color-mix(in srgb, var(--contribution-color) 75%, transparent);
+}
+
+.contrib-cell.l4 {
+    fill: var(--contribution-color);
+}
+
 .projects-intro {
     margin-top: 1.5rem;
     max-width: 42rem;
-    color: var(--text-color);
+    color: var(--text-color-secondary);
     font-size: 1.15rem;
     line-height: 1.65;
 }
@@ -115,7 +159,7 @@
 
 .project-desc {
     margin: 0;
-    color: var(--text-color);
+    color: var(--text-color-secondary);
     font-family: var(--font-desc);
     font-size: 1rem;
     line-height: 1.6;
@@ -164,13 +208,13 @@
     left: 0.75rem;
     font-family: var(--font-mono);
     font-size: 0.85rem;
-    color: var(--text-color);
+    color: var(--text-color-secondary);
     opacity: 0.7;
 }
 
 .project-basic-desc {
     margin: 0;
-    color: var(--text-color);
+    color: var(--text-color-secondary);
     font-family: var(--font-desc);
     font-size: 1rem;
     line-height: 1.6;
@@ -337,7 +381,7 @@
 }
 
 .modal-desc {
-    color: var(--text-color);
+    color: var(--text-color-secondary);
     font-family: var(--font-desc);
     font-size: 1rem;
     line-height: 1.7;
@@ -401,7 +445,7 @@ text-overflow: ellipsis;
 .modal-size-info {
     font-family: var(--font-mono);
     font-size: 0.85rem;
-    color: var(--text-color);
+    color: var(--text-color-secondary);
     opacity: 0.7;
 }
 
@@ -497,7 +541,7 @@ text-overflow: ellipsis;
     right: 1rem;
     background: transparent;
     border: none;
-    color: var(--text-color-primary);
+    color: var(--text-color-secondary);
     font-size: 2rem;
     cursor: pointer;
     line-height: 1;

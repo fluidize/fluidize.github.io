@@ -231,7 +231,7 @@ body.menu-open .sidebar {
     align-items: center;
     gap: 0.75rem;
     font-size: 0.8rem;
-    color: var(--text-color);
+    color: var(--text-color-secondary);
     box-sizing: border-box;
 }
 

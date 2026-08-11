@@ -19,7 +19,7 @@ button:hover {
     padding: 0.4rem 0.8rem;
     background: transparent;
     border: 2px solid var(--accent-color);
-    color: var(--text-color);
+    color: var(--text-color-secondary);
     font-family: var(--font-display);
     font-size: 0.8rem;
     font-weight: 400;

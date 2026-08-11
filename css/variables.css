@@ -8,7 +8,7 @@
     --page-bg: #000000;
 
     --text-color-primary: #f4f4fc;
-    --text-color: #d0d0e8;
+    --text-color-secondary: #d0d0e8;
 
     --hover-bg: #ffffff;
     --hover-text: #000000;
@@ -27,6 +27,11 @@
 
     --border-width: 1px;
     --card-radius: 4px;
+
+    --chart-axis-font: var(--font-mono);
+    --chart-axis-color: var(--text-color-secondary);
+    --chart-grid-gap: 4px;
+    --contribution-color: #39ff14;
 
     --font-body: 'Departure Mono', 'Courier New', monospace;
     --font-mono: 'Departure Mono', monospace;
