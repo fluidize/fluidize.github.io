@@ -522,4 +522,52 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Check hash on hash change
     window.addEventListener('hashchange', checkUrlHash);
+
+    // Theme selection (cycling button)
+    const themeBtn = document.getElementById('theme-btn');
+    let themes = {};
+    let currentThemeId = 'c64';
+
+    function applyTheme(themeId) {
+        const theme = themes[themeId];
+        if (!theme) return;
+        currentThemeId = themeId;
+        const root = document.documentElement;
+        Object.entries(theme.colors).forEach(([key, value]) => {
+            root.style.setProperty(`--${key}`, value);
+        });
+        if (themeBtn) {
+            themeBtn.textContent = theme.name || themeId;
+        }
+        localStorage.setItem('theme', themeId);
+    }
+
+    function cycleTheme() {
+        const ids = Object.keys(themes);
+        if (ids.length === 0) return;
+        const index = ids.indexOf(currentThemeId);
+        applyTheme(ids[(index + 1) % ids.length]);
+    }
+
+    if (themeBtn) {
+        fetch('themes.json')
+            .then(response => response.json())
+            .then(data => {
+                themes = data.themes;
+                const saved = localStorage.getItem('theme');
+                if (saved && themes[saved]) {
+                    applyTheme(saved);
+                } else {
+                    applyTheme('c64');
+                }
+            })
+            .catch(error => {
+                console.error('Failed to load themes:', error);
+                if (themeBtn) {
+                    themeBtn.textContent = 'c64';
+                }
+            });
+
+        themeBtn.addEventListener('click', cycleTheme);
+    }
 });

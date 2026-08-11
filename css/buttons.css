@@ -3,11 +3,12 @@ button {
     transform: translate(0, 0);
     transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
+    text-shadow: var(--glow);
 }
 
 button:hover {
     transform: translate(3px, -3px);
-    box-shadow: -3px 3px 0 black;
+    box-shadow: -3px 3px 0 var(--hover-shadow);
 }
 
 #inspired-btn {
@@ -45,7 +46,7 @@ button:hover {
 
 #inspired-btn:hover {
     background: #EFE5C0;
-    border-color: black;
+    border-color: var(--hover-border);
     color: transparent;
 }
 

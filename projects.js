@@ -16,7 +16,7 @@ async function loadProjects() {
                     <div class="project-meta">
                         ${project.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('')}
                     </div>
-                    <button class="view-more-btn" data-project="${project.id}">View More</button>
+                    <button class="view-more-btn" data-project="${project.id}">Read More</button>
                     <div class="project-desc">
                         ${Array.isArray(project.desc) ? project.desc.map(item => item.startsWith('\n') ? `<p></p><p>${item.replace(/^\n/, '')}</p>` : `<p>${item}</p>`).join('') : `<p>${project.desc.replace(/\n/g, '<br>')}</p>`}
                     </div>

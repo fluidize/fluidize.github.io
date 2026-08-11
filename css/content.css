@@ -84,7 +84,7 @@
 .socials-card {
     border: var(--border-width) solid var(--accent-color);
     padding: 1.25rem 1.5rem;
-    background: rgba(0, 0, 0, 0.12);
+    background: var(--card-bg);
     border-radius: var(--card-radius);
     position: relative;
 }
@@ -207,14 +207,14 @@
 }
 
 .view-more-btn:hover {
-    background: #fff;
-    color: #000;
+    background: var(--hover-bg);
+    color: var(--hover-text);
     transform: translate(3px, -3px);
-    box-shadow: -3px 3px 0 #000;
+    box-shadow: -3px 3px 0 var(--hover-shadow);
 }
 
 .view-more-btn:hover::before {
-    border-color: #000;
+    border-color: var(--hover-border);
 }
 
 .project-modal {
@@ -396,11 +396,11 @@ text-overflow: ellipsis;
 
 #discord.discord-btn:hover,
 #github.github-btn:hover {
-    color: #000;
-    background: #fff;
-    border-color: #000;
+    color: var(--hover-text);
+    background: var(--hover-bg);
+    border-color: var(--hover-border);
     transform: translate(3px, -3px);
-    box-shadow: -3px 3px 0 #000;
+    box-shadow: -3px 3px 0 var(--hover-shadow);
 }
 
 .caret {
