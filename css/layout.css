@@ -350,6 +350,11 @@ body.menu-open .sidebar-backdrop {
     .main-content {
         scroll-behavior: auto;
     }
+
+    .project-modal[aria-hidden="false"],
+    .project-modal.closing {
+        animation: none;
+    }
 }
 
 @media (max-width: 768px) {

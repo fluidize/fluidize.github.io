@@ -430,9 +430,19 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    let modalCloseTimeout = null;
+    let modalClosing = false;
+
     function openModal(projectId) {
         const card = document.querySelector(`.project-card[data-project="${projectId}"]`);
         if (!card) return;
+
+        if (modalCloseTimeout) {
+            clearTimeout(modalCloseTimeout);
+            modalCloseTimeout = null;
+        }
+        modalClosing = false;
+        modal.classList.remove('closing');
 
         const title = card.querySelector('.project-title').textContent;
         const desc = card.querySelector('.project-desc').innerHTML;
@@ -476,11 +486,19 @@ document.addEventListener('DOMContentLoaded', function () {
     window.openModal = openModal;
 
     function closeModal() {
-        modal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
-            lastFocusedElement.focus();
-        }
+        if (modal.getAttribute('aria-hidden') === 'true' || modalClosing) return;
+        modalClosing = true;
+        modal.classList.add('closing');
+        modalCloseTimeout = setTimeout(function () {
+            modal.setAttribute('aria-hidden', 'true');
+            modal.classList.remove('closing');
+            modalClosing = false;
+            modalCloseTimeout = null;
+            document.body.style.overflow = '';
+            if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+                lastFocusedElement.focus();
+            }
+        }, 150);
     }
 
     // Modal close handlers
