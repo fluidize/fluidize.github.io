@@ -84,7 +84,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const navSelector = '.filetree-link';
 
-    function switchPage(page) {
+    function switchPage(page, opts) {
+        const silent = opts && opts.silent;
         Object.values(contentAreas).forEach(function (area) {
             if (area) area.style.display = 'none';
         });
@@ -94,6 +95,12 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll(navSelector).forEach(function (link) {
             link.classList.toggle('active', link.getAttribute('data-page') === page && !link.getAttribute('data-project'));
         });
+        if (!silent) {
+            const expected = '#page=' + page;
+            if (window.location.hash !== expected) {
+                window.location.hash = expected;
+            }
+        }
     }
 
     function setActiveProject(projectId) {
@@ -115,27 +122,20 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         const page = this.getAttribute('data-page');
         const project = this.getAttribute('data-project');
-        
-        switchPage(page);
-        
+
         if (project) {
+            // Open the project via its URL hash so the link is shareable
             setActiveProject(project);
-            setTimeout(function() {
-                const projectCards = document.querySelectorAll('.project-card');
-                projectCards.forEach(function(card, index) {
-                    const titleElement = card.querySelector('.project-title');
-                    if (!titleElement) return;
-                    
-                    const title = titleElement.textContent.trim();
-                    const abbreviation = generateAbbreviation(title);
-                    
-                    if (abbreviation === project) {
-                        titleElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                });
-            }, 100);
+            const projectHash = '#project=' + project;
+            if (window.location.hash !== projectHash) {
+                window.location.hash = projectHash;
+            } else {
+                openProjectFromHash(projectHash);
+            }
+        } else {
+            switchPage(page);
         }
-        
+
         closeMenu();
     }
 
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
         link.addEventListener('click', handleNavClick);
     });
 
-    switchPage('home');
+    switchPage('home', { silent: true });
 
     // Function to generate abbreviated name from title
     function generateAbbreviation(title) {
@@ -177,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             const title = titleElement.textContent.trim();
             const abbreviation = generateAbbreviation(title);
+            const cardId = card.getAttribute('data-project') || abbreviation;
             
             const itemDiv = document.createElement('div');
             itemDiv.className = 'filetree-item';
@@ -185,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function () {
             link.href = 'javascript:void(0)';
             link.className = 'filetree-link';
             link.setAttribute('data-page', 'projects');
-            link.setAttribute('data-project', abbreviation);
+            link.setAttribute('data-project', cardId);
             link.textContent = abbreviation + '.txt';
             
             itemDiv.appendChild(link);
@@ -223,8 +224,53 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    const SIZE_CACHE_KEY = 'fluidize-size-cache';
+    const SIZE_CACHE_TTL = 6 * 60 * 60 * 1000; // 6 hours
+    const sizeMemoryCache = {}; // In-memory cache to dedupe concurrent calls
+
+    function getCachedSize(cacheKey) {
+        if (sizeMemoryCache[cacheKey]) {
+            return sizeMemoryCache[cacheKey];
+        }
+        try {
+            const raw = localStorage.getItem(SIZE_CACHE_KEY);
+            if (!raw) return null;
+            const cache = JSON.parse(raw);
+            const entry = cache[cacheKey];
+            if (!entry || !entry.value) return null;
+            if (Date.now() - entry.timestamp > SIZE_CACHE_TTL) return null;
+            sizeMemoryCache[cacheKey] = entry.value;
+            return entry.value;
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function setCachedSize(cacheKey, value) {
+        sizeMemoryCache[cacheKey] = value;
+        try {
+            const raw = localStorage.getItem(SIZE_CACHE_KEY);
+            const cache = raw ? JSON.parse(raw) : {};
+            cache[cacheKey] = { value: value, timestamp: Date.now() };
+            localStorage.setItem(SIZE_CACHE_KEY, JSON.stringify(cache));
+        } catch (error) {
+            // Ignore storage errors (private mode, quota, etc.)
+        }
+    }
+
+    function formatBytes(bytes) {
+        if (bytes === 0) return '0.0 B';
+        if (bytes < 1024) return `${bytes.toFixed(1)} B`;
+        if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+        return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+    }
+
     // Fetch folder size from GitHub API
     async function fetchFolderSize(repo, path) {
+        const cacheKey = path ? `${repo}/${path}` : repo;
+        const cached = getCachedSize(cacheKey);
+        if (cached) return cached;
+
         try {
             let totalSize = 0;
             
@@ -262,11 +308,9 @@ document.addEventListener('DOMContentLoaded', function () {
             
             await calculateSize(path);
 
-            // Convert bytes to appropriate unit (always one decimal place)
-            if (totalSize === 0) return '0.0 B';
-            if (totalSize < 1024) return `${totalSize.toFixed(1)} B`;
-            if (totalSize < 1024 * 1024) return `${(totalSize / 1024).toFixed(1)} KB`;
-            return `${(totalSize / (1024 * 1024)).toFixed(1)} MB`;
+            const result = formatBytes(totalSize);
+            setCachedSize(cacheKey, result);
+            return result;
             
         } catch (error) {
             console.error('Error fetching folder size:', error);
@@ -276,6 +320,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Fetch repository size from GitHub API
     async function fetchRepoSize(repo) {
+        const cacheKey = repo;
+        const cached = getCachedSize(cacheKey);
+        if (cached) return cached;
+
         try {
             const response = await fetch(`https://api.github.com/repos/${repo}`);
             if (!response.ok) {
@@ -284,10 +332,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const data = await response.json();
             
             if (data.size !== undefined) {
-                // Convert KB to appropriate unit (always one decimal place)
-                const sizeInBytes = data.size * 1024;
-                if (sizeInBytes < 1024 * 1024) return `${data.size.toFixed(1)} KB`;
-                return `${(data.size / 1024).toFixed(1)} MB`;
+                const result = formatBytes(data.size * 1024);
+                setCachedSize(cacheKey, result);
+                return result;
             }
             
             return 'N/A';
@@ -300,7 +347,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Update all size info elements
     async function updateSizeInfo() {
         const sizeInfoElements = document.querySelectorAll('.size-info');
-        const sizeCache = {}; // Cache sizes to avoid duplicate API calls
 
         for (const element of sizeInfoElements) {
             const githubPath = element.getAttribute('data-github');
@@ -311,20 +357,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const repo = `${parts[0]}/${parts[1]}`;
             const path = parts.length > 2 ? parts.slice(2).join('/') : null;
 
-            const cacheKey = githubPath;
-
-            if (sizeCache[cacheKey]) {
-                element.textContent = sizeCache[cacheKey];
+            let size;
+            if (path) {
+                size = await fetchFolderSize(repo, path);
             } else {
-                let size;
-                if (path) {
-                    size = await fetchFolderSize(repo, path);
-                } else {
-                    size = await fetchRepoSize(repo);
-                }
-                sizeCache[cacheKey] = size;
-                element.textContent = size;
+                size = await fetchRepoSize(repo);
             }
+            element.textContent = size;
         }
     }
 
@@ -368,6 +407,29 @@ document.addEventListener('DOMContentLoaded', function () {
     const modalLink = document.getElementById('modal-link');
     const modalSizeInfo = document.getElementById('modal-size-info');
 
+    let lastFocusedElement = null;
+
+    function trapFocus(container, event) {
+        if (event.key !== 'Tab') return;
+        const focusables = container.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+        }
+    }
+
+    if (modal) {
+        modal.addEventListener('keydown', function (e) {
+            trapFocus(modal, e);
+        });
+    }
+
     function openModal(projectId) {
         const card = document.querySelector(`.project-card[data-project="${projectId}"]`);
         if (!card) return;
@@ -385,6 +447,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         modal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
+        lastFocusedElement = document.activeElement;
+        if (modalClose) {
+            modalClose.focus();
+        }
 
         // Fetch and display size info
         if (githubPath) {
@@ -412,6 +478,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function closeModal() {
         modal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
+        if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+            lastFocusedElement.focus();
+        }
     }
 
     // Modal close handlers
@@ -443,6 +512,10 @@ document.addEventListener('DOMContentLoaded', function () {
         lightboxImg.src = imgSrc;
         lightbox.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
+        lastFocusedElement = document.activeElement;
+        if (lightboxClose) {
+            lightboxClose.focus();
+        }
     }
 
     function closeLightbox() {
@@ -451,6 +524,15 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(() => {
             lightboxImg.src = '';
         }, 300);
+        if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+            lastFocusedElement.focus();
+        }
+    }
+
+    if (lightbox) {
+        lightbox.addEventListener('keydown', function (e) {
+            trapFocus(lightbox, e);
+        });
     }
 
     // Attach click handlers to images in modal descriptions
@@ -481,47 +563,60 @@ document.addEventListener('DOMContentLoaded', function () {
         lightboxBackdrop.addEventListener('click', closeLightbox);
     }
 
-    // Check URL hash for auto-opening project cards
-    function checkUrlHash() {
+    // Handle URL hash: #page=X switches pages, #project=X / #projects=X deep-link a project
+    function handleHash() {
         const hash = window.location.hash;
-        if (hash && (hash.startsWith('#project=') || hash.startsWith('#projects='))) {
-            // Hide menu hint
-            const menuHint = document.querySelector('.menu-hint');
-            if (menuHint) {
-                menuHint.style.display = 'none';
-            }
-            
-            const projectId = hash.replace('#project=', '').replace('#projects=', '');
-            
-            // Switch to projects page
-            const projectsLink = document.querySelector('[data-page="projects"]');
-            if (projectsLink) {
-                projectsLink.click();
-            }
-            
-            // Poll for project card to appear
-            let attempts = 0;
-            const maxAttempts = 50; // 5 seconds
-            
-            const checkForCard = setInterval(() => {
-                attempts++;
-                const card = document.querySelector(`.project-card[data-project="${projectId}"]`);
-                
-                if (card && window.openModal) {
-                    clearInterval(checkForCard);
-                    window.openModal(projectId);
-                } else if (attempts >= maxAttempts) {
-                    clearInterval(checkForCard);
-                }
-            }, 100);
+        if (!hash || hash === '#') {
+            switchPage('home');
+            return;
         }
+        if (hash.startsWith('#page=')) {
+            const page = hash.substring('#page='.length);
+            if (contentAreas[page]) {
+                switchPage(page);
+            }
+            return;
+        }
+        if (hash.startsWith('#project=') || hash.startsWith('#projects=')) {
+            openProjectFromHash(hash);
+            return;
+        }
+        switchPage('home');
     }
 
-    // Check hash on page load
-    checkUrlHash();
+    function openProjectFromHash(hash) {
+        const menuHintEl = document.querySelector('.menu-hint');
+        if (menuHintEl) {
+            menuHintEl.style.display = 'none';
+        }
+
+        const projectId = hash.replace('#project=', '').replace('#projects=', '');
+
+        switchPage('projects', { silent: true });
+        setActiveProject(projectId);
+
+        // Poll for project card to appear (projects load asynchronously)
+        let attempts = 0;
+        const maxAttempts = 50; // 5 seconds
+
+        const checkForCard = setInterval(() => {
+            attempts++;
+            const card = document.querySelector(`.project-card[data-project="${projectId}"]`);
+
+            if (card && window.openModal) {
+                clearInterval(checkForCard);
+                window.openModal(projectId);
+            } else if (attempts >= maxAttempts) {
+                clearInterval(checkForCard);
+            }
+        }, 100);
+    }
+
+    // Resolve initial page from URL hash
+    handleHash();
 
     // Check hash on hash change
-    window.addEventListener('hashchange', checkUrlHash);
+    window.addEventListener('hashchange', handleHash);
 
     // Theme selection (cycling button)
     const themeBtn = document.getElementById('theme-btn');
@@ -538,6 +633,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         if (themeBtn) {
             themeBtn.textContent = theme.name || themeId;
+        }
+        const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+        if (themeColorMeta && theme.colors['primary-color']) {
+            themeColorMeta.setAttribute('content', theme.colors['primary-color']);
         }
         localStorage.setItem('theme', themeId);
     }

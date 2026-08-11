@@ -54,7 +54,7 @@
   },
   {
     "id": "birdclef",
-    "title": "BirdCLEF 2026 🐦",
+    "title": "BirdCLEF 2026",
     "basicDesc": "A bird sound classification model using EfficientNet-b0 with attention pooling and GLU layers.",
     "tags": ["Neural Networks", "Classification", "Kaggle"],
     "desc": [

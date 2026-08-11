@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>404 — Not Found · Fluidize</title>
+    <link rel="icon" href="favicon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-normalize@3.0.1/modern-normalize.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <meta name="description" content="This page could not be found.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="#2a2ab8" name="theme-color">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-frame" id="app-frame">
+        <main class="main-content">
+            <div class="content-wrapper">
+                <div class="window-frame">
+                    <div id="content-area">
+                        <div class="home-content" id="home-content">
+                            <h1 id="title">404 :(</h1>
+                            <div class="home-subtitle-container">
+                                <span class="home-subtitle"><span class="home-subtitle-text">error: file not found</span><span class="caret">_</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p class="footer-tagline"><a href="index.html">@fluidize</a></p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('themes.json')
+                .then(function (response) { return response.json(); })
+                .then(function (data) {
+                    var themes = data.themes;
+                    var saved = localStorage.getItem('theme');
+                    if (saved && themes[saved]) {
+                        applyTheme(themes[saved], saved);
+                    } else {
+                        applyTheme(themes['c64'], 'c64');
+                    }
+                })
+                .catch(function () {});
+
+            function applyTheme(theme, themeId) {
+                if (!theme) return;
+                var root = document.documentElement;
+                Object.keys(theme.colors).forEach(function (key) {
+                    root.style.setProperty('--' + key, theme.colors[key]);
+                });
+                var themeColorMeta = document.querySelector('meta[name="theme-color"]');
+                if (themeColorMeta && theme.colors['primary-color']) {
+                    themeColorMeta.setAttribute('content', theme.colors['primary-color']);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
