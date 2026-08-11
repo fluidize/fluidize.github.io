@@ -33,7 +33,7 @@ html {
 }
 
 body {
-    font-family: 'Departure Mono', 'Courier New', monospace;
+    font-family: var(--font-body);
     background: #000000;
     color: var(--text-color-primary);
     display: flex;

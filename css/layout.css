@@ -54,7 +54,7 @@
     background: var(--primary-color);
     border-top: var(--border-width) solid var(--accent-color);
     color: var(--text-color-primary);
-    font-family: 'Departure Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 0.9rem;
     display: flex;
     justify-content: center;
@@ -141,7 +141,7 @@ body.menu-open .sidebar {
 }
 
 .filetree-root {
-    font-family: 'Departure Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 1rem;
     font-weight: 700;
     color: var(--text-color-primary);
@@ -183,7 +183,7 @@ body.menu-open .sidebar {
     flex: 1;
     color: var(--text-color-primary);
     text-decoration: none;
-    font-family: 'Departure Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 1rem;
     font-weight: 400;
     letter-spacing: 0.05em;
@@ -196,7 +196,7 @@ body.menu-open .sidebar {
 }
 
 .filetree-link.active {
-    font-family: 'Departure Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 1rem;
     font-weight: 700;
     letter-spacing: 0.05em;
@@ -213,7 +213,7 @@ body.menu-open .sidebar {
     flex: 1;
     color: var(--text-color-primary);
     text-decoration: none;
-    font-family: 'Departure Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 1rem;
     font-weight: 400;
     letter-spacing: 0.05em;
@@ -222,7 +222,7 @@ body.menu-open .sidebar {
 
 .sidebar-footer {
     width: 100%;
-    font-family: 'Tiny5', monospace;
+    font-family: var(--font-display);
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -254,7 +254,7 @@ body.menu-open .sidebar {
     background: var(--primary-color);
     border: 2px solid var(--accent-color);
     color: var(--text-color-primary);
-    font-family: 'Tiny5', monospace;
+    font-family: var(--font-display);
     font-size: 1.25rem;
     line-height: 1;
     transition: transform 0.3s, box-shadow 0.3s, background 0.15s ease, border-color 0.15s ease, color 0.15s ease, opacity 0.3s ease, visibility 0.3s ease;
@@ -280,7 +280,7 @@ body.menu-open .sidebar {
     height: 48px;
     margin: 12px 0;
     color: var(--text-color-primary);
-    font-family: 'Tiny5', monospace;
+    font-family: var(--font-display);
     font-size: 1rem;
     line-height: 48px;
     opacity: 0.7;

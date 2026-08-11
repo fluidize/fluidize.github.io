@@ -11,4 +11,9 @@
 
     --border-width: 1px;
     --card-radius: 4px;
+
+    --font-body: 'Departure Mono', 'Courier New', monospace;
+    --font-mono: 'Departure Mono', monospace;
+    --font-display: 'Tiny5', monospace;
+    --font-desc: 'JetBrains Mono', monospace;
 }
