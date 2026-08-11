@@ -22,6 +22,7 @@
         "filetree-hover-text": "#ffffff",
         "filetree-hover-glow": "0 0 8px rgba(255, 255, 255, 0.5)",
         "card-bg": "rgba(0, 0, 0, 0.12)",
+        "modal-bg": "rgba(10, 10, 15, 0.95)",
         "border-width": "1px",
         "card-radius": "4px"
       }
@@ -48,6 +49,7 @@
         "filetree-hover-text": "#b3ffc8",
         "filetree-hover-glow": "0 0 8px rgba(0, 255, 65, 0.4)",
         "card-bg": "rgba(0, 0, 0, 0.12)",
+        "modal-bg": "rgba(10, 10, 15, 0.95)",
         "border-width": "1px",
         "card-radius": "4px"
       }
@@ -74,11 +76,12 @@
         "filetree-hover-text": "#000000",
         "filetree-hover-glow": "none",
         "card-bg": "#f0f0fa",
+        "modal-bg": "#fafaff",
         "border-width": "1px",
         "card-radius": "4px"
       }
     },
-    "dark": {
+    "storm": {
       "name": "Storm",
       "colors": {
         "bezel": "32px",
@@ -100,6 +103,7 @@
         "filetree-hover-text": "#ffffff",
         "filetree-hover-glow": "0 0 8px rgba(255, 255, 255, 0.4)",
         "card-bg": "#1a1a22",
+        "modal-bg": "rgba(26, 26, 34, 0.95)",
         "border-width": "1px",
         "card-radius": "4px"
       }

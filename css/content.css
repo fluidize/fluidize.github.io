@@ -192,7 +192,7 @@
     font-size: 0.9rem;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s, background 0.15s ease, color 0.15s ease;
-    box-shadow: none;
+    box-shadow: -3px 3px 0 transparent;
     transform: translate(0, 0);
     transform-origin: center;
     box-sizing: border-box;
@@ -210,7 +210,7 @@
     background: var(--hover-bg);
     color: var(--hover-text);
     transform: translate(3px, -3px);
-    box-shadow: -3px 3px 0 var(--hover-shadow);
+    box-shadow: -6px 6px 0 var(--hover-shadow);
 }
 
 .view-more-btn:hover::before {
@@ -244,11 +244,11 @@
 
 .modal-content {
     position: relative;
-    max-width: 700px;
-    width: 90%;
-    max-height: 85vh;
+    max-width: 900px;
+    width: 92%;
+    max-height: 80vh;
     overflow-y: auto;
-    background: rgba(10, 10, 15, 0.95);
+    background: var(--modal-bg);
     border: var(--border-width) solid var(--accent-color);
     border-radius: var(--card-radius);
     padding: 2rem;
@@ -262,7 +262,7 @@
 }
 
 .modal-content::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.3);
+    background: transparent;
     border-radius: 4px;
     margin-top: 2px;
     margin-bottom: 2px;
@@ -385,7 +385,7 @@ text-overflow: ellipsis;
     background: transparent;
     padding: 0.2rem 0.4rem;
     border: 2px solid var(--accent-color);
-    box-shadow: none;
+    box-shadow: -3px 3px 0 transparent;
     font-family: var(--font-mono);
     font-size: 1.2rem;
     line-height: 1;
@@ -400,7 +400,7 @@ text-overflow: ellipsis;
     background: var(--hover-bg);
     border-color: var(--hover-border);
     transform: translate(3px, -3px);
-    box-shadow: -3px 3px 0 var(--hover-shadow);
+    box-shadow: -6px 6px 0 var(--hover-shadow);
 }
 
 .caret {
@@ -429,6 +429,14 @@ text-overflow: ellipsis;
 
     .modal-size-info {
         display: none;
+    }
+
+    .view-more-btn,
+    .view-more-btn:hover,
+    #discord.discord-btn:hover,
+    #github.github-btn:hover {
+        transform: none;
+        box-shadow: none;
     }
 }
 
