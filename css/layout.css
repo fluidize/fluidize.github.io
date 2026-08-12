@@ -34,18 +34,34 @@
     padding: var(--main-pad-y) 2rem;
 }
 
-/* Hide scrollbars (still scrollable) */
+/* Themed scrollbars */
 .main-content,
 .sidebar-body {
-    -ms-overflow-style: none; /* IE/Edge legacy */
-    scrollbar-width: none; /* Firefox */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: var(--accent-color) var(--primary-color);
 }
 
 .main-content::-webkit-scrollbar,
 .sidebar-body::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
-    width: 0;
-    height: 0;
+    width: 10px;
+    height: 10px;
+}
+
+.main-content::-webkit-scrollbar-track,
+.sidebar-body::-webkit-scrollbar-track {
+    background: var(--primary-color);
+}
+
+.main-content::-webkit-scrollbar-thumb,
+.sidebar-body::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 4px;
+}
+
+.main-content::-webkit-scrollbar-thumb:hover,
+.sidebar-body::-webkit-scrollbar-thumb:hover {
+    background: var(--selected-color);
 }
 
 .footer {
@@ -384,7 +400,7 @@ body.menu-open .sidebar-backdrop {
         margin-bottom: 1rem;
     }
 
-    #title {
+    .page-title {
         font-size: clamp(1.75rem, 8vw, 3rem);
     }
 }

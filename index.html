@@ -11,6 +11,25 @@
     <meta name="description" content="Fluidize's portfolio — finance, data engineering, and machine learning projects.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta content="#2a2ab8" name="theme-color">
+    <script>
+        (function () {
+            try {
+                var id = localStorage.getItem('theme');
+                var themes = JSON.parse(localStorage.getItem('themes-cache') || 'null');
+                if (id && themes && themes.themes && themes.themes[id]) {
+                    var colors = themes.themes[id].colors;
+                    var root = document.documentElement;
+                    for (var key in colors) {
+                        root.style.setProperty('--' + key, colors[key]);
+                    }
+                    var meta = document.querySelector('meta[name="theme-color"]');
+                    if (meta && colors['primary-color']) {
+                        meta.setAttribute('content', colors['primary-color']);
+                    }
+                }
+            } catch (error) {}
+        })();
+    </script>
     <meta property="og:title" content="Fluidize">
     <meta property="og:description" content="Fluidize's portfolio — finance, data engineering, and machine learning projects.">
     <meta property="og:url" content="https://fluidize.github.io/">
@@ -26,7 +45,7 @@
 <body>
     <div class="sidebar-backdrop" id="sidebar-backdrop" aria-hidden="true"></div>
 
-    <aside class="sidebar" id="site-sidebar" aria-label="Navigation">
+    <aside class="sidebar" id="site-sidebar" aria-label="Navigation" inert>
         <div class="sidebar-body">
             <nav class="sidebar-nav" aria-label="Site">
                 <div class="filetree">
@@ -36,7 +55,7 @@
                     </div>
                     <!-- HOME SECTION -->
                     <div class="filetree-item">
-                        <a href="javascript:void(0)" class="filetree-link" data-page="home">home</a>
+                        <a href="#page=home" class="filetree-link" data-page="home">home</a>
                     </div>
                     <div class="filetree-nested" id="home-nested">
                         <div class="filetree-item">
@@ -45,18 +64,18 @@
                     <!-- ABOUT SECTION -->
                     </div>
                     <div class="filetree-item">
-                        <a href="javascript:void(0)" class="filetree-link" data-page="about">about_me</a>
+                        <a href="#page=about" class="filetree-link" data-page="about">about_me</a>
                     </div>
                     <div class="filetree-nested" id="about-nested">
                         <span class="filetree-nonlink">about.txt</span>
                     </div>
                     <!-- PROJECTS SECTION-->
                     <div class="filetree-item">
-                        <a href="javascript:void(0)" class="filetree-link" data-page="projects">projects</a>
+                        <a href="#page=projects" class="filetree-link" data-page="projects">projects</a>
                     </div>
                     <div class="filetree-nested" id="projects-nested"></div> <!-- AUTOMATIC CARD NESTING -->
                     <div class="filetree-item">
-                        <a href="javascript:void(0)" class="filetree-link" data-page="socials">socials</a>
+                        <a href="#page=socials" class="filetree-link" data-page="socials">socials</a>
                     </div>
                     <!-- SOCIALS SECTION -->
                     <div class="filetree-nested" id="socials-nested">
@@ -84,14 +103,14 @@
                 <div class="window-frame">
                     <div id="content-area">
                         <div class="home-content" id="home-content">
-                            <h1 id="title">Fluidize</h1>
+                            <h1 class="page-title">Fluidize</h1>
                             <div class="home-subtitle-container">
                                 <span class="home-subtitle"><span class="home-subtitle-text">Welcome to my corner of the internet!</span><span class="caret">_</span></span>
                             </div>
                         </div>
 
                         <div class="page-content" id="about-content">
-                            <h1 id="title">About Me</h1>
+                            <h1 class="page-title">About Me</h1>
                             <div class="about-section">
                                 <h2>Introduction</h2>
                                 <p>Hello, I'm Max, and I'm interested in finance and data engineering.</p>
@@ -113,7 +132,7 @@
                         </div>
 
                         <div class="page-content" id="socials-content">
-                            <h1 id="title">Socials</h1>
+                            <h1 class="page-title">Socials</h1>
                             <div class="socials-card">
                                 <ul class="socials-links" aria-label="Social links">
                                     <li><span>Discord:</span> <button type="button" class="discord-btn" id="discord" data-url="https://discord.com">fluidize</button></li>
@@ -123,7 +142,7 @@
                         </div>
 
                         <div class="page-content" id="projects-content">
-                            <h1 id="title">Projects</h1>
+                            <h1 class="page-title">Projects</h1>
                             <p class="projects-intro">Check out some of my projects below.<span class="caret">_</span></p>
                             <ul class="projects-list"></ul> <!-- automatically populated in main.js -->
                         </div>

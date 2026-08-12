@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Initialize projects loaded flag
-    window.projectsLoaded = false;
-    
     const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('site-sidebar');
     const sidebarBackdrop = document.getElementById('sidebar-backdrop');
     const menuHint = document.querySelector('.menu-hint');
     const mainContent = document.querySelector('.main-content');
@@ -35,6 +33,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function setMenuOpen(open) {
         document.body.classList.toggle('menu-open', open);
+        if (sidebar) {
+            if (open) {
+                sidebar.removeAttribute('inert');
+            } else {
+                sidebar.setAttribute('inert', '');
+            }
+        }
         if (menuToggle) {
             menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
             menuToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
@@ -186,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
             itemDiv.className = 'filetree-item';
             
             const link = document.createElement('a');
-            link.href = 'javascript:void(0)';
+            link.href = '#project=' + cardId;
             link.className = 'filetree-link';
             link.setAttribute('data-page', 'projects');
             link.setAttribute('data-project', cardId);
@@ -674,6 +679,11 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 themes = data.themes;
+                try {
+                    localStorage.setItem('themes-cache', JSON.stringify(data));
+                } catch (error) {
+                    // Ignore storage errors (private mode, quota, etc.)
+                }
                 const saved = localStorage.getItem('theme');
                 if (saved && themes[saved]) {
                     applyTheme(saved);
