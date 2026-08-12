@@ -41,15 +41,24 @@
     scrollbar-color: var(--accent-color) var(--primary-color);
 }
 
-.main-content::-webkit-scrollbar,
-.sidebar-body::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+/* Hide the right-side scrollbar on the main content while keeping scrolling */
+.main-content {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* legacy Edge */
+}
+
+.main-content::-webkit-scrollbar {
+    display: none;
 }
 
 .main-content::-webkit-scrollbar-track,
 .sidebar-body::-webkit-scrollbar-track {
     background: var(--primary-color);
+}
+
+.sidebar-body::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
 }
 
 .main-content::-webkit-scrollbar-thumb,
