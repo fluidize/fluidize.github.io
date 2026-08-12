@@ -22,14 +22,14 @@
       "The policy uses two encoders, one creating embeddings through 1D Convolution and the other with LSTMs.",
       "To introduce exploration during training, the policy predicts a normal distribution of allocations(mu and log-sigma), where an allocation is randomly sampled. Using action sampling also appears to stabilize the policy's convergence.",
       "Gated linear units applied on features, Kaiming weight initialization, and a custom loss metric borrowed from a Hull Tactical Kaggle competition greatly improved the policy's training stability and backtest performances.",
-      "<img src=\"images/projects/allocation_architecture.png\" alt=\"Allocation architecture diagram\">",
+      "<img src=\"images/projects/allocation_architecture.png\">",
       "<h2><u>Policy Evaluation:</u></h2>",
       "<u>Loss Curve from 1024 Epochs:</u>",
-      "<img src=\"images/projects/allocation_training_metrics.png\" alt=\"Allocation loss diagram\">",
+      "<img src=\"images/projects/allocation_training_metrics.png\">",
       "<u>In-Sample Performance:<sup>*</sup></u>",
-      "<img src=\"images/projects/allocation_train.png\" alt=\"Allocation train diagram\">",
+      "<img src=\"images/projects/allocation_train.png\">",
       "<u>Out-of-Sample Performance:<sup>*</sup></u>",
-      "<img src=\"images/projects/allocation_val.png\" alt=\"Allocation validation diagram\">",
+      "<img src=\"images/projects/allocation_val.png\">",
       "<sub>* Trading commisions/fees are not modeled in the environment.</sub>"
     ],
     "link": "https://github.com/fluidize/qtech/tree/main/trading/brains/allocation",
@@ -46,8 +46,8 @@
       "Indicator genes are the first genes generated, containing an indicator function and returning the available parameters for the bayesian optimizer to select. The logic gene can use one or two indicator/logic genes to create logical structures. The signal gene then selects one logic gene to use as the long signal and one as the sell/short signal, finally creating a basic algorithm.",
       "The current implementation uses the following in order: population generation, bayesian optimization(via optuna), and staged pruning to find the best performing algorithm within a generated population.",
       "<u>Here are examples of generated algorithms (converted to code):</u>",
-      "<img src=\"images/projects/evolution_simple.png\" alt=\"Simple evolution diagram\">",
-      "<img src=\"images/projects/evolution_complex.png\" alt=\"Complex evolution diagram\">"
+      "<img src=\"images/projects/evolution_simple.png\">",
+      "<img src=\"images/projects/evolution_complex.png\">"
     ],
     "link": "https://github.com/fluidize/qtech/tree/main/trading/brains/evolution",
     "github": "fluidize/qtech/trading/brains/evolution"
@@ -68,16 +68,18 @@
     "github": "fluidize/BirdCLEF-2026"
   },
   {
-    "id": "jupiter",
-    "title": "Jupiter-Based Live Trading System",
-    "basicDesc": "A live trading system using Jupiter DEX API with asynchronous market data streaming and paper trading.",
-    "tags": ["Algorithmic Trading", "Live Trading"],
+    "id": "terminal",
+    "title": "Stock Screening TUI",
+    "basicDesc": "A bloomberg-style stock screening and monitoring app inside the terminal built with Textual UI.",
+    "tags": ["App", "Stocks"],
     "desc": [
-      "Through the Jupiter Decentralized Exchange API, this system takes in an algorithm(any python function) and asynchronously feeds market data to it.",
-      "Market data is streamed from sources such as binance, and trades made by the algorithm are processed through the Jupiter Aggregator.",
-      "Features a live paper trading mode for forward testing. Latency and small price mismatches(between data source and DEX) are expected."
+      "Features company information + description, earnings, price, and return data including 365d sharpe ratio. News tab fetches from TickerTick news API with direct links to SEC filings.",
+      "<img src=\"images/projects/terminal_app.png\">",
+      "Volatility curve/surface to also show trader sentiment and institutional hedging:",
+      "<img src=\"images/projects/terminal_curve.png\">",
+      "<img src=\"images/projects/terminal_surface.png\">"
     ],
-    "link": "https://github.com/fluidize/qtech/tree/main/trading/live/jupiter",
-    "github": "fluidize/qtech/trading/live/jupiter"
+    "link": "https://github.com/fluidize/qtech/tree/main/terminal",
+    "github": "fluidize/qtech/terminal"
   }
 ]
