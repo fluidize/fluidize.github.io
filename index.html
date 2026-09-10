@@ -39,6 +39,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
@@ -84,6 +85,15 @@
                         </div>
                         <div class="filetree-item">
                             <span class="filetree-nonlink">discord.url</span>
+                        </div>
+                    </div>
+                    <!-- PICTURES SECTION -->
+                    <div class="filetree-item">
+                        <a href="#page=pictures" class="filetree-link" data-page="pictures">photos</a>
+                    </div>
+                    <div class="filetree-nested" id="pictures-nested">
+                        <div class="filetree-item">
+                            <span class="filetree-nonlink">photos/</span>
                         </div>
                     </div>
                 </div>
@@ -174,6 +184,15 @@
         <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
         <button class="lightbox-close" id="lightbox-close" aria-label="Close lightbox">×</button>
         <img class="lightbox-img" id="lightbox-img" src="" alt="">
+    </div>
+
+    <div class="pictures-experience" id="pictures-experience" aria-hidden="true">
+        <button type="button" class="pictures-back" id="pictures-back" aria-label="Back to home">↖</button>
+        <div class="pictures-viewer" id="pictures-viewer">
+            <figcaption class="pictures-viewer-caption" id="pictures-viewer-caption"></figcaption>
+            <p class="pictures-hint" id="pictures-hint">Select a photo</p>
+        </div>
+        <div class="pictures-stack" id="pictures-stack"></div>
     </div>
 
     <script src="main.js"></script>

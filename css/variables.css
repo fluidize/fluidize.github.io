@@ -27,6 +27,8 @@
 
     --border-width: 1px;
     --card-radius: 4px;
+    --stack-gap: 1.5vw;
+    --stack-thumb-w: 7vw;
 
     --chart-axis-font: var(--font-mono);
     --chart-axis-color: var(--text-color-secondary);
@@ -37,4 +39,11 @@
     --font-mono: 'Departure Mono', monospace;
     --font-display: 'Tiny5', monospace;
     --font-desc: 'JetBrains Mono', monospace;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --stack-gap: 4.8vw;
+        --stack-thumb-w: 18vw;
+    }
 }

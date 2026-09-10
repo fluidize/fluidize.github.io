@@ -2,7 +2,7 @@
   {
     "id": "allocation",
     "title": "Differentiable RL in Asset Allocation",
-    "basicDesc": "A differentiable reinforcement learning approach for optimizing a policy.",
+    "basicDesc": "A differentiable reinforcement learning approach for optimizing a policy",
     "tags": ["Algorithmic Trading", "Neural Networks", "Reinforcement Learning"],
     "desc": [
       "Through Pytorch's functions, the learning/trading environment can form a computational graph between the policy's trades and a loss metric. In this way, the policy can be trained to directly optimize for the metric using standard backpropagation instead of traditional reinforcement learning methods.",
@@ -38,7 +38,7 @@
   {
     "id": "evolution",
     "title": "Genetic Algorithms for Algorithmic Trading",
-    "basicDesc": "A genetic algorithm system for evolving trading strategies using Python ASTs and Bayesian optimization.",
+    "basicDesc": "A genetic algorithm system for evolving trading strategies using Python ASTs and Bayesian optimization",
     "tags": ["Algorithmic Trading", "Evolutionary Algorithms", "Bayesian Optimization"],
     "desc": [
       "Using python abstract syntax trees to represent genes, algorithms can be randomly generated to process logic between technical indicators and output trading signals.",
@@ -55,7 +55,7 @@
   {
     "id": "birdclef",
     "title": "BirdCLEF 2026",
-    "basicDesc": "A bird sound classification model using EfficientNet-b0 with attention pooling and GLU layers.",
+    "basicDesc": "A bird sound classification model using EfficientNet-b0 with attention pooling and GLU layers",
     "tags": ["Neural Networks", "Classification", "Kaggle"],
     "desc": [
       "Starting from a Mel-scaled spectrogram, the efficientnet-b0 Convolutional Neural Network(with pretrained weights for faster convergence) is used as the model backbone to generate convoluted embeddings.",
@@ -70,7 +70,7 @@
   {
     "id": "terminal",
     "title": "Stock Screening TUI",
-    "basicDesc": "A bloomberg-style stock screening and monitoring app inside the terminal built with Textual UI.",
+    "basicDesc": "A bloomberg-style stock screening and monitoring app inside the terminal built with Textual UI",
     "tags": ["App", "Stocks"],
     "desc": [
       "Features company information + description, earnings, price, and return data including 365d sharpe ratio. News tab fetches from TickerTick news API with direct links to SEC filings.",
