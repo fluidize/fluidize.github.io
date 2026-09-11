@@ -598,10 +598,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const picturesViewer = document.getElementById('pictures-viewer');
     const picturesViewerCaption = document.getElementById('pictures-viewer-caption');
     const picturesNested = document.getElementById('pictures-nested');
+    const picturesLightCanvas = document.getElementById('pictures-light');
 
     let PICTURES = [];
 
     let picturesActiveThumb = null;
+    let picturesLightLoop = null;
+    let picturesLightUntil = 0;
+    let picturesGL = null;
 
     async function loadPictures() {
         try {
@@ -666,6 +670,201 @@ document.addEventListener('DOMContentLoaded', function () {
         return value;
     }
 
+    const PICTURES_THREE_URL = 'https://unpkg.com/three@0.160.0/build/three.module.js';
+    const PICTURES_SHADOW_DEPTH = 80;
+    const PICTURES_LIGHT_HEIGHT = 240;
+
+    async function initPicturesLight() {
+        if (!picturesLightCanvas || picturesGL) return;
+        let THREE;
+        try {
+            THREE = await import(PICTURES_THREE_URL);
+        } catch (error) {
+            console.error('Failed to load three.js:', error);
+            return;
+        }
+
+        const renderer = new THREE.WebGLRenderer({
+            canvas: picturesLightCanvas,
+            alpha: true,
+            antialias: false,
+            powerPreference: 'low-power'
+        });
+        renderer.setClearColor(0x000000, 0);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 1000);
+        camera.position.set(0, 0, 500);
+        camera.lookAt(0, 0, 0);
+
+        const receiver = new THREE.Mesh(
+            new THREE.PlaneGeometry(1, 1),
+            new THREE.MeshStandardMaterial({
+                color: 0xffd9a8,
+                roughness: 1,
+                metalness: 0,
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            })
+        );
+        receiver.position.set(0, 0, 0);
+        receiver.receiveShadow = true;
+        scene.add(receiver);
+
+        const occluder = new THREE.Mesh(
+            new THREE.PlaneGeometry(1, 1),
+            new THREE.MeshBasicMaterial({ colorWrite: false, depthWrite: false, side: THREE.DoubleSide })
+        );
+        occluder.position.set(0, 0, PICTURES_SHADOW_DEPTH);
+        occluder.castShadow = true;
+        occluder.visible = false;
+        scene.add(occluder);
+
+        const light = new THREE.SpotLight(0xffc98a, 3.2, 0, THREE.MathUtils.degToRad(35), 0.3, 0);
+        light.position.set(0, 0, PICTURES_LIGHT_HEIGHT);
+        light.castShadow = false;
+        light.shadow.mapSize.set(2048, 2048);
+        light.shadow.camera.near = 1;
+        light.shadow.camera.far = 1000;
+        light.shadow.camera.updateProjectionMatrix();
+        light.shadow.radius = 8;
+        light.shadow.bias = -0.0005;
+        scene.add(light);
+        scene.add(light.target);
+
+        picturesGL = {
+            renderer: renderer,
+            scene: scene,
+            camera: camera,
+            receiver: receiver,
+            occluder: occluder,
+            light: light
+        };
+
+        resizePicturesLight();
+        if (picturesExperience && picturesExperience.classList.contains('active')) {
+            queuePicturesLight();
+        }
+    }
+
+    function resizePicturesLight() {
+        if (!picturesGL || !picturesExperience) return;
+        const width = Math.max(1, picturesExperience.clientWidth);
+        const height = Math.max(1, picturesExperience.clientHeight);
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+        picturesGL.renderer.setPixelRatio(dpr);
+        picturesGL.renderer.setSize(width, height, false);
+
+        const camera = picturesGL.camera;
+        camera.left = -width / 2;
+        camera.right = width / 2;
+        camera.top = height / 2;
+        camera.bottom = -height / 2;
+        camera.updateProjectionMatrix();
+
+        picturesGL.receiver.scale.set(width * 2, height * 2, 1);
+    }
+
+    function getPicturesFocusCenterX() {
+        if (!picturesExperience) return 0;
+        const experienceRect = picturesExperience.getBoundingClientRect();
+        const thumbW = getStackVar('--stack-thumb-w');
+        const gap = getStackVar('--stack-gap');
+        let maxIndex = 0;
+        if (picturesStack) {
+            Array.prototype.forEach.call(
+                picturesStack.querySelectorAll('.pictures-thumb'),
+                function (t) {
+                    const i = parseInt(t.style.getPropertyValue('--i'), 10) || 0;
+                    if (i > maxIndex) maxIndex = i;
+                }
+            );
+        }
+        const stackLeft =
+            experienceRect.left + experienceRect.width - thumbW + gap - maxIndex * gap;
+        return (experienceRect.left + stackLeft) / 2;
+    }
+
+    function renderPicturesLight() {
+        if (!picturesGL || !picturesExperience) return;
+        const gl = picturesGL;
+        const width = Math.max(1, picturesExperience.clientWidth);
+        const height = Math.max(1, picturesExperience.clientHeight);
+        const experienceRect = picturesExperience.getBoundingClientRect();
+
+        const focusX = getPicturesFocusCenterX() - experienceRect.left;
+        const lightInset = 0;
+        gl.light.position.set(width / 2 - lightInset, height / 2 - lightInset, PICTURES_LIGHT_HEIGHT);
+        gl.light.target.position.set(focusX - width / 2, 0, 0);
+        gl.light.target.updateMatrixWorld();
+
+        const thumb =
+            picturesActiveThumb ||
+            (picturesStack && picturesStack.querySelector('.pictures-thumb.is-closing'));
+
+        if (thumb) {
+            const rect = thumb.getBoundingClientRect();
+            const domX = rect.left + rect.width / 2 - experienceRect.left;
+            const domY = rect.top + rect.height / 2 - experienceRect.top;
+            gl.occluder.visible = true;
+            gl.occluder.position.set(domX - width / 2, height / 2 - domY, PICTURES_SHADOW_DEPTH);
+            gl.occluder.scale.set(rect.width, rect.height, 1);
+        } else {
+            gl.occluder.visible = false;
+        }
+
+        gl.renderer.render(gl.scene, gl.camera);
+    }
+
+    function updatePictureShadow(thumb, lx, ly) {
+        if (!thumb) return;
+        const rect = thumb.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        let vx = cx - lx;
+        let vy = cy - ly;
+        const dist = Math.sqrt(vx * vx + vy * vy) || 1;
+        vx /= dist;
+        vy /= dist;
+        const mag = Math.min(58, 18 + dist * 0.06);
+        const ox = vx * mag;
+        const oy = vy * mag + 12;
+        thumb.style.boxShadow =
+            ox.toFixed(1) + 'px ' + oy.toFixed(1) + 'px 16px rgba(0, 0, 0, 0.72)';
+    }
+
+    function picturesLightTick() {
+        picturesLightLoop = null;
+        const thumb =
+            picturesActiveThumb ||
+            (picturesStack && picturesStack.querySelector('.pictures-thumb.is-closing'));
+        if (thumb) {
+            const experienceRect = picturesExperience
+                ? picturesExperience.getBoundingClientRect()
+                : null;
+            const lightInset = 0;
+            const lx = experienceRect ? experienceRect.right - lightInset : getPicturesFocusCenterX();
+            const ly = experienceRect ? experienceRect.top + lightInset : thumb.getBoundingClientRect().top;
+            updatePictureShadow(thumb, lx, ly);
+        }
+        renderPicturesLight();
+        const closing =
+            picturesStack && picturesStack.querySelector('.pictures-thumb.is-closing');
+        if (closing || performance.now() < picturesLightUntil) {
+            picturesLightLoop = window.requestAnimationFrame(picturesLightTick);
+        }
+    }
+
+    function queuePicturesLight() {
+        picturesLightUntil = performance.now() + 1000;
+        if (picturesLightLoop) return;
+        picturesLightLoop = window.requestAnimationFrame(picturesLightTick);
+    }
+
     function layoutActiveThumb() {
         if (!picturesActiveThumb || !picturesViewer) return;
         const img = picturesActiveThumb.querySelector('img');
@@ -699,6 +898,8 @@ document.addEventListener('DOMContentLoaded', function () {
         picturesActiveThumb.style.top = (vr.top + (vr.height - h) / 2) + 'px';
         picturesActiveThumb.style.width = w + 'px';
         picturesActiveThumb.style.height = h + 'px';
+
+        queuePicturesLight();
     }
 
     function openPicture(thumb) {
@@ -731,6 +932,7 @@ document.addEventListener('DOMContentLoaded', function () {
         thumb.style.top = '';
         thumb.style.width = '';
         thumb.style.height = '';
+        thumb.style.boxShadow = '';
         picturesExperience.classList.remove('has-photo');
         if (picturesViewerCaption) {
             picturesViewerCaption.textContent = '';
@@ -742,6 +944,7 @@ document.addEventListener('DOMContentLoaded', function () {
         picturesExperience.classList.add('active');
         picturesExperience.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
+        resizePicturesLight();
         document.querySelectorAll(navSelector).forEach(function (link) {
             link.classList.toggle('active', link.getAttribute('data-page') === 'pictures');
         });
@@ -772,9 +975,11 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('resize', function () {
         if (picturesActiveThumb) {
             layoutActiveThumb();
+            queuePicturesLight();
         }
     });
 
+    initPicturesLight();
     loadPictures();
 
     // Handle URL hash: #page=X switches pages, #project=X / #projects=X deep-link a project
