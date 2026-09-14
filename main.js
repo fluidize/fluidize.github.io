@@ -797,8 +797,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const experienceRect = picturesExperience.getBoundingClientRect();
 
         const focusX = getPicturesFocusCenterX() - experienceRect.left;
-        const lightInset = 0;
-        gl.light.position.set(width / 2 - lightInset, height / 2 - lightInset, PICTURES_LIGHT_HEIGHT);
+        gl.light.position.set(focusX - width / 2, height / 2, PICTURES_LIGHT_HEIGHT);
         gl.light.target.position.set(focusX - width / 2, 0, 0);
         gl.light.target.updateMatrixWorld();
 
@@ -846,9 +845,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const experienceRect = picturesExperience
                 ? picturesExperience.getBoundingClientRect()
                 : null;
-            const lightInset = 0;
-            const lx = experienceRect ? experienceRect.right - lightInset : getPicturesFocusCenterX();
-            const ly = experienceRect ? experienceRect.top + lightInset : thumb.getBoundingClientRect().top;
+            const thumbRect = thumb.getBoundingClientRect();
+            const lx = experienceRect
+                ? getPicturesFocusCenterX()
+                : thumbRect.left + thumbRect.width / 2;
+            const ly = experienceRect ? experienceRect.top : thumbRect.top;
             updatePictureShadow(thumb, lx, ly);
         }
         renderPicturesLight();
