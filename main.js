@@ -673,6 +673,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const PICTURES_THREE_URL = 'https://unpkg.com/three@0.160.0/build/three.module.js';
     const PICTURES_SHADOW_DEPTH = 80;
     const PICTURES_LIGHT_HEIGHT = 240;
+    const PICTURES_LIGHT_RAISE = 0.6;
 
     async function initPicturesLight() {
         if (!picturesLightCanvas || picturesGL) return;
@@ -769,24 +770,13 @@ document.addEventListener('DOMContentLoaded', function () {
         picturesGL.receiver.scale.set(width * 2, height * 2, 1);
     }
 
-    function getPicturesFocusCenterX() {
+    function getPicturesViewerCenterX() {
         if (!picturesExperience) return 0;
         const experienceRect = picturesExperience.getBoundingClientRect();
-        const thumbW = getStackVar('--stack-thumb-w');
-        const gap = getStackVar('--stack-gap');
-        let maxIndex = 0;
-        if (picturesStack) {
-            Array.prototype.forEach.call(
-                picturesStack.querySelectorAll('.pictures-thumb'),
-                function (t) {
-                    const i = parseInt(t.style.getPropertyValue('--i'), 10) || 0;
-                    if (i > maxIndex) maxIndex = i;
-                }
-            );
-        }
-        const stackLeft =
-            experienceRect.left + experienceRect.width - thumbW + gap - maxIndex * gap;
-        return (experienceRect.left + stackLeft) / 2;
+        const viewerRect = picturesViewer
+            ? picturesViewer.getBoundingClientRect()
+            : experienceRect;
+        return viewerRect.left + viewerRect.width / 2;
     }
 
     function renderPicturesLight() {
@@ -795,10 +785,14 @@ document.addEventListener('DOMContentLoaded', function () {
         const width = Math.max(1, picturesExperience.clientWidth);
         const height = Math.max(1, picturesExperience.clientHeight);
         const experienceRect = picturesExperience.getBoundingClientRect();
+        const viewerCenterX = getPicturesViewerCenterX() - experienceRect.left - width / 2;
 
-        const focusX = getPicturesFocusCenterX() - experienceRect.left;
-        gl.light.position.set(focusX - width / 2, height / 2, PICTURES_LIGHT_HEIGHT);
-        gl.light.target.position.set(focusX - width / 2, 0, 0);
+        gl.light.position.set(
+            viewerCenterX,
+            height / 2 + height * PICTURES_LIGHT_RAISE,
+            PICTURES_LIGHT_HEIGHT
+        );
+        gl.light.target.position.set(viewerCenterX, 0, 0);
         gl.light.target.updateMatrixWorld();
 
         const thumb =
@@ -847,7 +841,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 : null;
             const thumbRect = thumb.getBoundingClientRect();
             const lx = experienceRect
-                ? getPicturesFocusCenterX()
+                ? getPicturesViewerCenterX()
                 : thumbRect.left + thumbRect.width / 2;
             const ly = experienceRect ? experienceRect.top : thumbRect.top;
             updatePictureShadow(thumb, lx, ly);
